@@ -9,3 +9,17 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+\.idea/blade\.xml
+
+\.idea/deployment\.xml
+
+\.idea/modules\.xml
+
+\.idea/senior-project\.iml
+
+\.idea/vcs\.xml
+
+\.idea/webServers\.xml
+
+\.idea/workspace\.xml

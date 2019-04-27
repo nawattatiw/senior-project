@@ -17,8 +17,10 @@ Route::get('/', function () {
 Route::get('testcodesu', function () {
     return view('layout.codeready');
 });
-Route::resource('/order', 'AddressController');
+Route::resource('order', 'AddressController');
+
 Route::resource('product', 'ProductController');
+
 Route::resource('orderproduct', 'OrderProductController');
 /*
 GET, POST , PATCH, DESTROY, PUT
