@@ -81,9 +81,21 @@
             <div class="form-group col-md-5">
               <div class="row">
                 <label for="inputAddress">เบอร์โทรติดต่อลูกค้า</label>
-                <input type="text" class="form-control"  name="billaddress" value="{{$order->billaddress}}">
+                <input type="text" class="form-control"  name="billaddress" value="{{$order->phone}}">
               </div>
             </div>
+
+            <div class="form-group col-md-5">
+              <div class="row">
+                <label for="inputAddress">Onelink</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control"  name="link" value="{{ URL("order/$order->order_id") }}" readonly>
+                </div>
+              </div>
+            </div>
+
+            <hr>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="productid" style="width:100%;">สินค้า</label>

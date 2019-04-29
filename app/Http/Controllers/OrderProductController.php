@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Orders;
 use Illuminate\Http\Request;
 use App\OrderProduct;
 use App\Product;
@@ -16,13 +18,15 @@ class OrderProductController extends Controller
      */
     public function index()
     {
+
+        $order = new Orders();
         $data = new OrderProduct();
         $products = Product::all();
         $data->order_id = Carbon::now()->timestamp;
         $data->billaddress = "";
         $order_products = [];
 
-        return view('layout.orderproduct',['order'=>$data, 'products' => $products , 'orderpd'=>$order_products],compact('data'));
+        return view('layout.orderproduct',['order'=>$order,'order_products'=>$data, 'products' => $products , 'orderpd'=>$order_products],compact('data'));
     }
 
     /**
@@ -44,8 +48,6 @@ class OrderProductController extends Controller
     public function store(Request $request)
     {
 
-
-
         $product_id = $request->get('product_id');
         $order_id = $request->get('order_id');
         $amount = $request->get('amount');
@@ -53,6 +55,18 @@ class OrderProductController extends Controller
         $total = $request->get('total');
         $billaddress = $request->get('billaddress');
 
+       //Check Order Exist
+        $order = Orders::where("order_id",$order_id)->first();
+        if(!$order){
+            $order = new Orders();
+            $order->order_id = $order_id;
+
+        }
+        $order->phone = $billaddress;
+        $order->save();
+
+
+        //Check product is already added?
         $order_products = OrderProduct::where("order_id",$order_id)->
                                 where("product_id",$product_id)->first();
 
@@ -81,6 +95,8 @@ class OrderProductController extends Controller
     public function show($id)
     {
 
+        $order = Orders::where("order_id",$id)->first();
+
 
         $order_products = OrderProduct::where("order_id",$id)->first();
 
@@ -100,7 +116,7 @@ class OrderProductController extends Controller
 
         $products = Product::all();
 
-        return view('layout.orderproduct',['order'=>$order_products, 'products' => $products , 'orderpd'=>$order_products_list],compact('data'));
+        return view('layout.orderproduct',['order'=>$order,  'products' => $products , 'orderpd'=>$order_products_list],compact('data'));
 
     }
 
@@ -143,7 +159,8 @@ class OrderProductController extends Controller
 
     public function list(){
 
-        $data =  $order_products_list = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+        $data =  $order_products_list =
+            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
             ->select('order_products.*', 'products.name', 'products.sku' )->get();
 
         return view('layout.orderlist',[ 'orderpd'=>$data],compact('data'));
