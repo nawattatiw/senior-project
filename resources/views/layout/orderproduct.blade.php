@@ -26,7 +26,7 @@
       <a href="#" class="list-group-item list-group-item-action bg-light">Order List</a>
       <a href="#" class="list-group-item list-group-item-action bg-light">Create Order</a>
       <a href="#" class="list-group-item list-group-item-action bg-light">Products</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light">Customer List</a>
+      <a href="/orderlist" class="list-group-item list-group-item-action bg-light">Customer List</a>
     </div>
   </div>
   <!-- /#sidebar-wrapper -->
