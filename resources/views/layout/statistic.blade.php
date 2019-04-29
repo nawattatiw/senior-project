@@ -19,8 +19,8 @@
 <div class="d-flex" id="wrapper">
 
   <!-- Sidebar -->
-  @include('layout.menu')
-
+  <!-- Sidebar -->
+@include('layout.menu')
 
   <!-- /#sidebar-wrapper -->
 
@@ -60,42 +60,12 @@
     <div class="container-fluid">
       <div class="container ">
         <br>
-        <h3 align="center">สร้างรายการขาย</h3>
-        <form method="post" action="{{url('orderproduct')}}">
-          {{ csrf_field() }}
-          <form>
-            <div class="form-group col-md-5">
-              <div class="row">
-                <label for="inputAddress">บิลเลขที่</label>
-                <input type="text" class="form-control"  name="order_id" value="{{$order->order_id}}">
-
-              </div>
-            </div>
-            <div class="form-group col-md-5">
-              <div class="row">
-                <label for="inputAddress">เบอร์โทรติดต่อลูกค้า</label>
-                <input type="text" class="form-control"  name="billaddress" value="{{$order->phone}}">
-              </div>
-            </div>
-
-            <div class="form-group col-md-5">
-              <div class="row">
-                <label for="inputAddress">Onelink</label>
-                <div class="col-sm-12">
-                  <input type="text" class="form-control"  name="link" value="{{ URL("order/$order->order_id") }}" readonly>
-                </div>
-              </div>
-            </div>
-
-            <hr>
-
+        <h3 align="center">Statistic</h3>
             <div class="form-row">
               <div class="form-group">
                 <label for="productid" style="width:100%;">สินค้า</label>
                 <select class="custom-select" name="product_id">
-                  @foreach($products as $product)
-                    <option  value="{{$product->no}}">{{$product->name}}</option>
-                  @endforeach
+                    <option  value="test">test</option>
                 </select>
               </div>
               <div class="form-group col-md-3">
@@ -111,46 +81,8 @@
                 <input type="text"  id="total"  class="form-control" name="total" >
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
-          </form>
-        </form>
         <hr>
         <!-- show Order-->
-      </div>
-      <div class="container">
-        <div class="row">
-          <h3 align="center">รายการสินค้าในรายการขาย</h3>
-        </div>
-        <div class="row">
-          <table class="table table-bordered table-striped" style="width: 100%">
-            <thead>
-            <tr>
-              <th>ชื่อ</th>
-              <th>sku</th>
-              <th>จำนวน</th>
-              <th>ราคา</th>
-              <th>ลบบิล</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr>
-              @foreach($orderpd as $row)
-                <td>{{$row->name}}</td>
-                <td>{{$row->sku}}</td>
-                <td>{{$row->amount}}</td>
-                <td>{{$row->price}}</td>
-                <td>
-                  <form method="post" class ="delete_form" action="{{action('OrderProductController@destroy',$row['id'])}}">
-                    {{csrf_field()}}
-                    <input  type="hidden" name="_method" value="DELETE" />
-                    <button type ="hidden" class="btn btn-danger">DELETE</button>
-                  </form>
-                </td>
-            </tr>
-            @endforeach
-          </table>
-        </div>
       </div>
     </div>
   </div>
