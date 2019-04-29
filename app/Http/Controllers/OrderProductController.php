@@ -139,4 +139,13 @@ class OrderProductController extends Controller
         $order_products->delete();
         return redirect()->route('orderproduct.index')->with('success', 'ลบข้อมูลเรียบร้อย');
       }
+
+
+    public function list(){
+
+        $data =  $order_products_list = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+            ->select('order_products.*', 'products.name', 'products.sku' )->get();
+
+        return view('layout.orderlist',[ 'orderpd'=>$data],compact('data'));
+    }
 }

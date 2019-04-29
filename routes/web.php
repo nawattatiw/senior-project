@@ -19,6 +19,8 @@ Route::get('testcodesu', function () {
 });
 Route::resource('order', 'AddressController');
 
+Route::get('orderlist', 'OrderProductController@list');
+
 Route::resource('product', 'ProductController');
 
 Route::resource('orderproduct', 'OrderProductController');

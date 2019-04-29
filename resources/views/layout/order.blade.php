@@ -29,7 +29,7 @@
             </div>
         </div>
         <h2 class ="text-center">CINTAGE SHOP</h2>
-        <p class ="text-center">เลขที่บิล&nbsp;{{$orderpd[0]->orderid}}</p>
+        <p class ="text-center">เลขที่บิล&nbsp;{{$orderpd[0]->order_id}}</p>
         {{--<p class ="text-center">หมดอายุ </p>--}}
         <div class="text-center">
             <h5>สถานะของรายการซื้อ</h5>
@@ -56,8 +56,8 @@
             <tbody>
                 @foreach($orderpd as $row)
                     <tr>
-                        <td>{{$row->productname}}</td>
-                        <td>{{$row->amout}}</td>
+                        <td>{{$row->name}}</td>
+                        <td>{{$row->amount}}</td>
                         <td>{{$row->price}}</td>
                     </tr>
                 @endforeach
@@ -101,7 +101,7 @@
             <tbody>
                 @foreach($orderpd as $row)
                     <tr>
-                        <td>{{$row->productname}}</td>
+                        <td>{{$row->name}}</td>
                         <td>{{$row->amout}}</td>
                         <td>{{$row->price}}</td>
                     </tr>

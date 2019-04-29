@@ -62,12 +62,30 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-      $data = AddressUser::find($id);
-      if($data){
-        $order_products = orderproduct::with("billaddress")->where("billaddress","=","$data->phonenumber")->get();
+      $order_id = $id;
 
+      $order = OrderProduct::where("order_id",$order_id)->first();
+
+      $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+        ->select('order_products.*', 'products.name', 'products.sku' )
+        ->where("order_products.order_id",$order_id)->get();
+
+
+      if($order){
+
+          $billadress = $order->billaddress;
+
+          $address = AddressUser::where("phonenumber",$billadress)->first();
+
+          if(!$address){
+              $address = new AddressUser();
+          }
+      }else{
+
+          dd( "No order" );
       }
-      return view('layout.order', ['data'=>$data,'orderpd'=>$order_products]);
+
+      return view('layout.order', ['data'=>$address,'orderpd'=>$order_products]);
     }
 
     /**
