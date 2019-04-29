@@ -22,7 +22,7 @@ class OrderProductController extends Controller
         $order = new Orders();
         $data = new OrderProduct();
         $products = Product::all();
-        $data->order_id = Carbon::now()->timestamp;
+        $order->order_id = Carbon::now()->timestamp;
         $data->billaddress = "";
         $order_products = [];
 
