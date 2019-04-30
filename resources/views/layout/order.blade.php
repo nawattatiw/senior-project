@@ -107,13 +107,13 @@
                     </tr>
                 @endforeach
                 <tr>
-                    <td>ปรษณีย์ไทย-ลงทะเบียน</td>
+                    <td>ไปรษณีย์ไทย-ลงทะเบียน</td>
                     <td>1</td>
                     <td>35</td>
                 </tr>
                 <tr>
                     <td colspan="2" style="background-color: #9fcdff; text-align: right;">ยอดรวมทั้งสิ้น</td>
-                    <td>55</td>
+                    <td>{{$orderpd[0]->total}}</td>
                 </tr>
             </tbody>
         </table>
@@ -133,11 +133,11 @@
             </div>
         </div>
         <label>จำนวนเงินที่โอน</label>
-        <input class="form-control" type="text" name="transtrade" value="ยอดชำระ: 55 บาท" readonly>
+        <input class="form-control" type="text" name="transtrade" value="{{$orderpd[0]->total}}&nbsp;บาท" readonly>
         <label>วันที่โอน</label>
-        <input class="form-control" type="text" name="transdate" placeholder="{{date("d/m/Y")}}" value="{{date("d/m/Y")}}" >
+        <input class="form-control" type="text" name="transdate"  value="{{$orderpd[0]->created_at}}" >
         <label>เวลา</label>
-        <input class="form-control" type="text" name="transtime" placeholder="{{date("H:i:s")}}" value="{{date("H:i:s")}}">
+        <input class="form-control" type="text" name="transtime" value="{{date("H:i:s")}}">
 
     </div>
     <!-- input การโอน -->
