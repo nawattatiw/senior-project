@@ -102,11 +102,12 @@
                 @foreach($orderpd as $row)
                     <tr>
                         <td>{{$row->name}}</td>
-                        <td>{{$row->amout}}</td>
+                        <td>{{$row->amount}}</td>
                         <td>{{$row->price}}</td>
                     </tr>
                 @endforeach
                 <tr>
+
                     <td>ไปรษณีย์ไทย-ลงทะเบียน</td>
                     <td>1</td>
                     <td>35</td>
@@ -135,7 +136,7 @@
         <label>จำนวนเงินที่โอน</label>
         <input class="form-control" type="text" name="transtrade" value="{{$orderpd[0]->total}}&nbsp;บาท" readonly>
         <label>วันที่โอน</label>
-        <input class="form-control" type="text" name="transdate"  value="{{$orderpd[0]->created_at}}" >
+        <input class="form-control" type="text" name="transdate"  value="$date->created_at->format('d.m.Y')" >
         <label>เวลา</label>
         <input class="form-control" type="text" name="transtime" value="{{date("H:i:s")}}">
 
