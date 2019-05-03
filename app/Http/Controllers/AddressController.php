@@ -39,7 +39,6 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-
         $order_id = $request->get('order_id');
         $url = "";
 
@@ -55,7 +54,6 @@ class AddressController extends Controller
         }
 
         $order = Orders::where("order_id",$order_id)->first();
-
 
         $phonenumber = $request->get('phonenumber');
         $ship_plan = $request->get('ship_plan');
@@ -98,19 +96,23 @@ class AddressController extends Controller
     {
         $order = Orders::where("order_id",$id)->first();
 
-        if($order->status == "TO PAY"){
-            return $this->generateCustomerToPay($order);
-        }elseif($order->status == "TO CHECK"){
-            return $this->generateCustomerToCheck($order);
+        if($order){
+          if($order->status == "TO PAY"){
+              return $this->generateCustomerToPay($order);
+          }elseif($order->status == "TO CHECK"){
+              return $this->generateCustomerToCheck($order);
 
-        }elseif($order->status == "TO SHIP"){
-            return $this->generateCustomerToShip($order);
+          }elseif($order->status == "TO SHIP"){
+              return $this->generateCustomerToShip($order);
 
+          }
+          elseif($order->status == "COMPLETE"){
+              return $this->generateCustomerToComplete($order);
+          }
+        } else {
+          dd('order not found');
         }
-        elseif($order->status == "COMPLETE"){
-            return $this->generateCustomerToComplete($order);
 
-        }
     }
 
     public function generateCustomerToPay($order){
@@ -119,7 +121,6 @@ class AddressController extends Controller
         $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
             ->select('order_products.*', 'products.name', 'products.sku' )
             ->where("order_products.order_id",$order_id)->get();
-
 
         // CALCULATE PRODUCT PRICE
         $product_price = 0 ;
@@ -133,8 +134,7 @@ class AddressController extends Controller
             $order->ship_plan = "ไปรษณีย์-ลงทะเบียน";
             $order->ship_cost = "35";
         }
-        $order->save();
-
+        $order->update();
 
         if($order){
 
@@ -194,7 +194,7 @@ class AddressController extends Controller
             dd( "No order" );
         }
 
-        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.tocheck', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     public function generateCustomerToShip($order){

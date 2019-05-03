@@ -14,10 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('testcodesu', function () {
-    return view('layout.codeready');
-});
 
+Route::resource('toship', 'AddressController');
+Route::resource('tocheck', 'AddressController');
+Route::resource('tocomplete', 'AddressController');
 Route::resource('order', 'AddressController');
 Route::get('orderlist', 'OrderProductController@list');
 Route::get('statistic', 'OrderProductController@statistic');
