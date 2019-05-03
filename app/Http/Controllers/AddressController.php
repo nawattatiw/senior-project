@@ -65,6 +65,8 @@ class AddressController extends Controller
         $order->ship_plan = $ship_plan;
         $order->ship_cost = $ship_cost;
         $order->slip_image_url = $url;
+        $order->status = "TO CHECK";
+
         $order->save();
 
         $address = AddressUser::where("phonenumber",$phonenumber)->first();
@@ -94,21 +96,37 @@ class AddressController extends Controller
      */
     public function show($id)
     {
-      $order_id = $id;
+        $order = Orders::where("order_id",$id)->first();
 
-      $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
-        ->select('order_products.*', 'products.name', 'products.sku' )
-        ->where("order_products.order_id",$order_id)->get();
+        if($order->status == "TO PAY"){
+            return $this->generateCustomerToPay($order);
+        }elseif($order->status == "TO CHECK"){
+            return $this->generateCustomerToCheck($order);
+
+        }elseif($order->status == "TO SHIP"){
+            return $this->generateCustomerToShip($order);
+
+        }
+        elseif($order->status == "COMPLETE"){
+            return $this->generateCustomerToComplete($order);
+
+        }
+    }
+
+    public function generateCustomerToPay($order){
+        $order_id = $order->order_id;
+
+        $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+            ->select('order_products.*', 'products.name', 'products.sku' )
+            ->where("order_products.order_id",$order_id)->get();
 
 
-      $order = Orders::where("order_id",$order_id)->first();
+        // CALCULATE PRODUCT PRICE
+        $product_price = 0 ;
 
-      // CALCULATE PRODUCT PRICE
-      $product_price = 0 ;
-
-      foreach ($order_products as $product){
-          $product_price = $product_price + $product->total;
-      }
+        foreach ($order_products as $product){
+            $product_price = $product_price + $product->total;
+        }
 
         $order->product_cost  = $product_price;
         if($order->ship_plan == ""){
@@ -118,23 +136,149 @@ class AddressController extends Controller
         $order->save();
 
 
-      if($order){
+        if($order){
 
-          $phone_number = $order->phone;
+            $phone_number = $order->phone;
 
-          $address = AddressUser::where("phonenumber",$phone_number)->first();
+            $address = AddressUser::where("phonenumber",$phone_number)->first();
 
-          if(!$address){
-              $address = new AddressUser();
-              $address->phonenumber = $phone_number;
-              $address->save();
-          }
-      }else{
+            if(!$address){
+                $address = new AddressUser();
+                $address->phonenumber = $phone_number;
+                $address->save();
+            }
+        }else{
 
-          dd( "No order" );
-      }
+            dd( "No order" );
+        }
 
-      return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+    }
+
+    public function generateCustomerToCheck($order){
+        $order_id = $order->order_id;
+
+        $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+            ->select('order_products.*', 'products.name', 'products.sku' )
+            ->where("order_products.order_id",$order_id)->get();
+
+
+        // CALCULATE PRODUCT PRICE
+        $product_price = 0 ;
+
+        foreach ($order_products as $product){
+            $product_price = $product_price + $product->total;
+        }
+
+        $order->product_cost  = $product_price;
+        if($order->ship_plan == ""){
+            $order->ship_plan = "ไปรษณีย์-ลงทะเบียน";
+            $order->ship_cost = "35";
+        }
+        $order->save();
+
+
+        if($order){
+
+            $phone_number = $order->phone;
+
+            $address = AddressUser::where("phonenumber",$phone_number)->first();
+
+            if(!$address){
+                $address = new AddressUser();
+                $address->phonenumber = $phone_number;
+                $address->save();
+            }
+        }else{
+
+            dd( "No order" );
+        }
+
+        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+    }
+
+    public function generateCustomerToShip($order){
+        $order_id = $order->order_id;
+
+        $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+            ->select('order_products.*', 'products.name', 'products.sku' )
+            ->where("order_products.order_id",$order_id)->get();
+
+
+        // CALCULATE PRODUCT PRICE
+        $product_price = 0 ;
+
+        foreach ($order_products as $product){
+            $product_price = $product_price + $product->total;
+        }
+
+        $order->product_cost  = $product_price;
+        if($order->ship_plan == ""){
+            $order->ship_plan = "ไปรษณีย์-ลงทะเบียน";
+            $order->ship_cost = "35";
+        }
+        $order->save();
+
+
+        if($order){
+
+            $phone_number = $order->phone;
+
+            $address = AddressUser::where("phonenumber",$phone_number)->first();
+
+            if(!$address){
+                $address = new AddressUser();
+                $address->phonenumber = $phone_number;
+                $address->save();
+            }
+        }else{
+
+            dd( "No order" );
+        }
+
+        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+    }
+
+    public function generateCustomerToComplete($order){
+        $order_id = $order->order_id;
+
+        $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+            ->select('order_products.*', 'products.name', 'products.sku' )
+            ->where("order_products.order_id",$order_id)->get();
+
+
+        // CALCULATE PRODUCT PRICE
+        $product_price = 0 ;
+
+        foreach ($order_products as $product){
+            $product_price = $product_price + $product->total;
+        }
+
+        $order->product_cost  = $product_price;
+        if($order->ship_plan == ""){
+            $order->ship_plan = "ไปรษณีย์-ลงทะเบียน";
+            $order->ship_cost = "35";
+        }
+        $order->save();
+
+
+        if($order){
+
+            $phone_number = $order->phone;
+
+            $address = AddressUser::where("phonenumber",$phone_number)->first();
+
+            if(!$address){
+                $address = new AddressUser();
+                $address->phonenumber = $phone_number;
+                $address->save();
+            }
+        }else{
+
+            dd( "No order" );
+        }
+
+        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     /**
