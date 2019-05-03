@@ -4,10 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Product extends Model
 {
     protected $table ='products';
-     protected $fillable = ['productid','name','price'];
+     protected $fillable = ['id','no','sku','name','unit','size','remaning','min_stock','default_price'];
 
 
     // public function OrderProduct(){

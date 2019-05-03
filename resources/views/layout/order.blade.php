@@ -58,7 +58,8 @@
                     <tr>
                         <td>{{$row->name}}</td>
                         <td>{{$row->amount}}</td>
-                        <td>{{$row->price}}</td>
+                        <td>{{$row->price
+                        }}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -136,7 +137,7 @@
         <label>จำนวนเงินที่โอน</label>
         <input class="form-control" type="text" name="transtrade" value="{{$orderpd[0]->total}}&nbsp;บาท" readonly>
         <label>วันที่โอน</label>
-        <input class="form-control" type="text" name="transdate"  value="$date->created_at->format('d.m.Y')" >
+        <input class="form-control" type="text" name="transdate"  value="{{date("d.m.Y")}}" >
         <label>เวลา</label>
         <input class="form-control" type="text" name="transtime" value="{{date("H:i:s")}}">
 
@@ -156,7 +157,7 @@
                <label>ชื่อ และ นามสกุล</label>
                 <input class="form-control" type="text" name="name" placeholder="" >
                 <label>เบอร์ติดต่อ</label>
-                <input class="form-control" type="text" name="phonenumber" placeholder="" >
+                <input class="form-control" type="text" name="phonenumber" placeholder=""value="{{$orderpd[0]->phonenumber}}">
                 <label>อีเมลล์</label>
                 <input class="form-control" type="text" name="email" placeholder="" >
                 <label>ที่อยู่</label>
@@ -211,7 +212,7 @@
         {{--</div>--}}
     {{--</div>--}}
     {{--<hr>--}}
-    {{--<!-- หลักฐานการโอน -->--}}
+    {{--<!-- หลักฐานการโอน  -->--}}
     {{--<h5>หลักฐานการโอน</h5>--}}
     {{--<div class="container">--}}
         {{--<div class="row">--}}
@@ -236,7 +237,7 @@
             console.log(radioValue);
         });
 
-        function calculatePrice(){
+        function D(){
 
             var amount =   $("#amount").val();
             var price =   $("#price").val();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+
 class ProductController extends Controller
 {
     /**
@@ -13,7 +14,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('layout.product');
+      $products = Product::paginate(10);
+      return view('layout.product',compact('products'));
     }
 
     /**
@@ -34,14 +36,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-      $products = new Product(
-      [
-      'name' => $request->get('name'),
-      'price' => $request->get('price')
-      ]
-          );
-      $products->save();
-      return redirect()->route('product.index');
+
     }
 
     /**
@@ -52,7 +47,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+      $product = Product::find($id);
+      return view('layout.product', ['products'=>$product,]);
     }
 
     /**

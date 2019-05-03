@@ -17,12 +17,11 @@ Route::get('/', function () {
 Route::get('testcodesu', function () {
     return view('layout.codeready');
 });
-Route::resource('order', 'AddressController');
 
+Route::resource('order', 'AddressController');
 Route::get('orderlist', 'OrderProductController@list');
 Route::get('statistic', 'OrderProductController@statistic');
-
-Route::resource('product', 'ProductController');
+Route::get('product', 'ProductController@index');
 
 Route::resource('orderproduct', 'OrderProductController');
 /*
