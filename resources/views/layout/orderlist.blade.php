@@ -144,7 +144,9 @@
                                 </td>
                                 <td>
                                     @if($page == "all")
-                                        <button type ="button" class="btn btn-primary">EDIT</button>
+                                    <a href="{{url("orderproduct")."/".$row->order_id}}">
+                                      <button type ="button" class="btn btn-primary">EDIT</button>
+                                    </a>
                                     @elseif($page == "check")
 
                                         <select class="status_select">
@@ -152,7 +154,9 @@
                                             <option>Approve</option>
                                             <option>Reject</option>
                                         </select>
-                                        <button type ="button" class="btn btn-primary">EDIT</button>
+                                        <a href="{{url("orderproduct")."/".$row->order_id}}">
+                                          <button type ="button" class="btn btn-primary">EDIT</button>
+                                        </a>
 
                                     @elseif($page == "ship")
 
@@ -160,7 +164,9 @@
                                             <option>To Ship</option>
                                             <option>Sent</option>
                                         </select>
-                                        <button type ="button" class="btn btn-primary">EDIT</button>
+                                        <a href="{{url("orderproduct")."/".$row->order_id}}">
+                                          <button type ="button" class="btn btn-primary">EDIT</button>
+                                        </a>
                                     @endif
 
 

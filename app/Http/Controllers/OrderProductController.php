@@ -116,7 +116,7 @@ class OrderProductController extends Controller
 
         $products = Product::all();
 
-        return view('layout.orderproduct',['order'=>$order,  'products' => $products , 'orderpd'=>$order_products_list],compact('data'));
+        return view('layout.orderproduct',['order'=>$order,  'products' => $products , 'orderpd'=>$order_products_list]);
 
     }
 

@@ -154,6 +154,8 @@
             <div class="text header"><h5>ชื่อ รายละเอียดการจัดส่ง</h5></div>
             <div class="container">
                 <br>
+
+                  <input class="form-control" type="hidden" name="order_id" value="{{$orderpd[0]->order_id}}" >
                <label>ชื่อ และ นามสกุล</label>
                 <input class="form-control" type="text" name="name" placeholder="" >
                 <label>เบอร์ติดต่อ</label>
