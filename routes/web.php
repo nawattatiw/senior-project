@@ -23,6 +23,7 @@ Route::get('orderlist', 'OrderProductController@list');
 Route::get('statistic', 'OrderProductController@statistic');
 Route::get('product', 'ProductController@index');
 
+
 Route::resource('orderproduct', 'OrderProductController');
 /*
 GET, POST , PATCH, DESTROY, PUT
