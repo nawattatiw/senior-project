@@ -31,7 +31,7 @@
         <h2 class ="text-center">CINTAGE SHOP</h2>
         <p class ="text-center">เลขที่บิล&nbsp;{{$order->order_id}}</p>
         {{--<p class ="text-center">หมดอายุ </p>--}}
-        <div class="text-center">
+        <div class="text-center list-group-item list-group-item-action active">
             <h5>สถานะของรายการซื้อ</h5>
             <span style="font-size: 30px">กำลังจัดส่ง</span>
             {{--<span>กำลังตรวจสอบ</span>--}}
@@ -91,7 +91,7 @@
     <h5>หลักฐานการโอน</h5>
     <div class="container">
       <br>
-      <div class="text-pull-left">
+      <div class="text-pull-left list-group-item list-group-item-action list-group-item-secondary">
           <img src="{{ asset("/images/logo.png") }}" width="80px" hight="70px" class="rounded float-left" >
           <p> โอนเข้าบีญชีธนาคาร กสิกรไทย
               <br>&nbsp;สาขา จามจุรี

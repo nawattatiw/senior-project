@@ -30,14 +30,23 @@
         </div>
         <h2 class ="text-center">CINTAGE SHOP</h2>
         <p class ="text-center">เลขที่บิล&nbsp;{{$order->order_id}}</p>
-        {{--<p class ="text-center">หมดอายุ </p>--}}
-        <div class="text-center">
+        <p class ="text-center">หมดอายุในวันที่  </p>
+        <div class="text-center list-group-item list-group-item-action active">
             <h5>สถานะของรายการซื้อ</h5>
-            <span style="font-size: 30px">จัดส่งแล้ว</span>
+            <span style="font-size: 30px">จัดส่งแล้ว</span><br>
+            <span style="font-size: 30px">Tracking on.&nbsp;EW618050162TH </span>
             {{--<span>กำลังตรวจสอบ</span>--}}
             {{--<span >จัดส่งแล้ว</span>--}}
         </div>
     </section>
+    <hr>
+    <!--  ตรวจสอบสถานะการส่ง-->
+    <h5>หลักฐานการโอน</h5>
+    <div class ="container list-group-item list-group-item-action">
+      <span class="pull-left">Tracking EW618050162TH</span><br>
+      <a href="http://track.thailandpost.co.th/tracking/default.aspx" target="_blank">ตรวจสอบสถานะการส่ง</a><p>
+    </div>
+    <hr>
     <!-- สรุปยอดชำระเงิน     รอแก้ไข     -->
     <div class="text header"><h5>สรุปยอดชำระเงิน</h5></div>
 
@@ -91,7 +100,7 @@
     <h5>หลักฐานการโอน</h5>
     <div class="container">
       <br>
-      <div class="text-pull-left">
+      <div class="text-pull-left list-group-item list-group-item-action list-group-item-secondary">
           <img src="{{ asset("/images/logo.png") }}" width="80px" hight="70px" class="rounded float-left" >
           <p> โอนเข้าบีญชีธนาคาร กสิกรไทย
               <br>&nbsp;สาขา จามจุรี
