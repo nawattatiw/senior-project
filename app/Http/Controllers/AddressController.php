@@ -236,7 +236,7 @@ class AddressController extends Controller
             dd( "No order" );
         }
 
-        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.ToShip', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     public function generateCustomerToComplete($order){
@@ -278,7 +278,7 @@ class AddressController extends Controller
             dd( "No order" );
         }
 
-        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.ToComplete', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     /**

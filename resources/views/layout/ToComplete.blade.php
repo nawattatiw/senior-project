@@ -33,7 +33,7 @@
         {{--<p class ="text-center">หมดอายุ </p>--}}
         <div class="text-center">
             <h5>สถานะของรายการซื้อ</h5>
-            <span style="font-size: 30px">กำลังจัดส่ง</span>
+            <span style="font-size: 30px">จัดส่งสำเร็จแล้ว</span>
             {{--<span>กำลังตรวจสอบ</span>--}}
             {{--<span >จัดส่งแล้ว</span>--}}
         </div>
