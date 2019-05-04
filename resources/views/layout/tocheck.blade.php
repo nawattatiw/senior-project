@@ -66,7 +66,7 @@
                 </tr>
                 <tr>
                     <td colspan="2" style="background-color: #9fcdff; text-align: right;">ยอดรวมทั้งสิ้น</td>
-                    <td  id="total_cost" >{{$order->total}}</td>
+                      <td  id="total_cost" >{{$order->total}}</td>
                 </tr>
             </tbody>
         </table>
@@ -80,7 +80,7 @@
             <div class="pull-left">
                 <span class="pull-left">{{$address->name}}</span><br>
                 <span class="pull-left">ที่อยู่ :&nbsp;{{$address->address}}&nbsp;{{$address->sub_district}}&nbsp;{{$address->district}}&nbsp;
-                    {{$address->province}}&nbsp;{{ $address->zipcode }}</span></br><br>
+                    {{$address->province}}&nbsp;{{ $address->zipcode }}</span></br>
                 <span class="pull-left">เบอร์โทรศัพท์:&nbsp;{{$address->phonenumber}}</span></br>
                 <span class="pull-left">อีเมล์ :&nbsp;{{$address->email}}</br>
             </div>
@@ -98,15 +98,15 @@
               <br>&nbsp;เลขบัญชี&nbsp;<FONT color="#33D8F9">2037485625</FONT>
               <br>&nbsp;ชื่อบัญชี บริษัท ชัญญา จำกัด</p>
             </div>
-              @foreach($orderpd as $row)
-                <span class="pull-left"> จำนวนเงินที่โอน :&nbsp;</span>
-                <h2  id="total_cost" class="pull-right"><FONT color="#04FA04">{{$order->total}}</h2></FONT>
-            @endforeach
+            @foreach($orderpd as $row)
+              <span class="pull-left"> จำนวนเงินที่โอน :&nbsp;</span>
+              <h2 class="pull-right"><FONT color="#04FA04">{{$order->total}}</h2></FONT><td>
+          @endforeach
             <br><br>
             <span class="pull-left"> วันเวลาที่โอน :&nbsp;</span>
-             <span class="pull-right">{{$address->updated_at}}</span><br>
+             <span class="pull-right">{{$address->updated_at}}</span><br><br>
              <span class="pull-left"> สลิป :&nbsp;</span>
-            <img id="preview_image" width="300px" src="{{$order->slip_image_url}}" alt="" vertical-align ="middle" />
+            <img  class="center" id="preview_image" width="500px" src="{{$order->slip_image_url}}" alt=""/>
     </div>
     <hr>
     <!-- ตรวจสอบสถานะการส่ง -->
