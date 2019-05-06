@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>Onelink Shop Ship</title>
+    <title>Onelink Shop Check</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
@@ -16,28 +16,9 @@
 </head>
 <body>
 <div class="container">
-    <!-- PROFILE -->
-    <section>
-        <div align="center">
-            <div class="d-flex justify-content-center h-100">
-                <div class="image_outer_container">
-                    <div class="image_inner_container">
-                        <img src="{{ asset("/images/cintage.jpg") }}">
-                    </div>
-                    <br><br>
-                </div>
-            </div>
-        </div>
-        <h2 class ="text-center">CINTAGE SHOP</h2>
-        <p class ="text-center">เลขที่บิล&nbsp;{{$order->order_id}}</p>
-        {{--<p class ="text-center">หมดอายุ </p>--}}
-        <div class="text-center list-group-item list-group-item-action active">
-            <h5>สถานะของรายการซื้อ</h5>
-            <span style="font-size: 30px">กำลังจัดส่ง</span>
-            {{--<span>กำลังตรวจสอบ</span>--}}
-            {{--<span >จัดส่งแล้ว</span>--}}
-        </div>
-    </section>
+    <!-- shopheader -->
+    @include('layout.component.shopheader')
+
     <!-- สรุปยอดชำระเงิน     รอแก้ไข     -->
     <div class="text header"><h5>สรุปยอดชำระเงิน</h5></div>
 
@@ -47,7 +28,7 @@
             <tr>
                 <th>สินค้า</th>
                 <th>จำนวน</th>
-                <th>ราคา</th>
+                <th>ราคา/ชิ้น</th>
             </tr>
             </thead>
             <tbody>
@@ -55,7 +36,7 @@
                     <tr>
                         <td>{{$row->name}}</td>
                         <td>{{$row->amount}}</td>
-                        <td>{{$row->total}}</td>
+                        <td>{{$row->price}}</td>
                     </tr>
                 @endforeach
                 <tr>

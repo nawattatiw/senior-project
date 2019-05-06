@@ -15,30 +15,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+
+
 <div class="container">
-    <!-- PROFILE -->
-    <section>
-        <div align="center">
-            <div class="d-flex justify-content-center h-100">
-                <div class="image_outer_container">
-                    <div class="image_inner_container">
-                        <img src="{{ asset("/images/cintage.jpg") }}">
-                    </div>
-                    <br><br>
-                </div>
-            </div>
-        </div>
-        <h2 class ="text-center">CINTAGE SHOP</h2>
-        <p class ="text-center">เลขที่บิล&nbsp;{{$order->order_id}}</p>
-        {{--<p class ="text-center">หมดอายุ </p>--}}
-        <div class="text-center list-group-item list-group-item-action active">
-            <h5>สถานะของรายการซื้อ</h5>
-            <span style="font-size: 30px">รอจ่ายเงิน</span>
-            {{--<span>กำลังตรวจสอบ</span>--}}
-            {{--<span >จัดส่งแล้ว</span>--}}
-        </div>
-    </section>
-    <!-- Staus-->
+    <!-- shopheader -->
+    @include('layout.component.shopheader')
+
 
     <!--สรุปออเดอร์ -->
     <div class="col-xs-12">

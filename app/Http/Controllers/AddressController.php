@@ -18,7 +18,7 @@ class AddressController extends Controller
     public function index()
     {
       $data = new AddressUser();
-      return view('layout.order', ['data'=>$data,]);
+      return view('layout.toPay', ['data'=>$data,]);
     }
 
     /**
@@ -152,7 +152,7 @@ class AddressController extends Controller
             dd( "No order" );
         }
 
-        return view('layout.order', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.toPay', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     public function generateCustomerToCheck($order){
@@ -194,7 +194,7 @@ class AddressController extends Controller
             dd( "No order" );
         }
 
-        return view('layout.tocheck', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.toCheck', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     public function generateCustomerToShip($order){
@@ -236,7 +236,7 @@ class AddressController extends Controller
             dd( "No order" );
         }
 
-        return view('layout.ToShip', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.toShip', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     public function generateCustomerToComplete($order){
@@ -278,7 +278,7 @@ class AddressController extends Controller
             dd( "No order" );
         }
 
-        return view('layout.ToComplete', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+        return view('layout.toComplete', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     /**

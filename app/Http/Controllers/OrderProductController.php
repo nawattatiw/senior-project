@@ -161,11 +161,15 @@ class OrderProductController extends Controller
 
        $page = request()->has('page') ? request()->get('page') : 'all';
 
-        $data =  $order_products_list =
-            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
-            ->select('order_products.*', 'products.name', 'products.sku' )->get();
+       $orders = Orders::join('address', 'orders.phone', '=', 'address.phonenumber')->get();
 
-        return view('layout.orderlist',[ 'orderpd'=>$data, "page" => $page],compact('data'));
+
+
+//        $data =  $order_products_list =
+//            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+//            ->select('order_products.*', 'products.name', 'products.sku' )->get();
+
+        return view('layout.orderlist',[  "page" => $page, "orders" => $orders],compact('data'));
     }
 
     public function statistic(){

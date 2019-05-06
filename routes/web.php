@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',  'OrderProductController@list');
 
 Route::resource('toship', 'AddressController');
 Route::resource('tocheck', 'AddressController');

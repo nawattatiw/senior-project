@@ -16,29 +16,9 @@
 </head>
 <body>
 <div class="container">
-    <!-- PROFILE -->
-    <section>
-        <div align="center">
-            <div class="d-flex justify-content-center h-100">
-                <div class="image_outer_container">
-                    <div class="image_inner_container">
-                        <img src="{{ asset("/images/cintage.jpg") }}">
-                    </div>
-                    <br><br>
-                </div>
-            </div>
-        </div>
-        <h2 class ="text-center">CINTAGE SHOP</h2>
-        <p class ="text-center">เลขที่บิล&nbsp;{{$order->order_id}}</p>
-        <p class ="text-center">หมดอายุในวันที่  </p>
-        <div class="text-center list-group-item list-group-item-action active">
-            <h5>สถานะของรายการซื้อ</h5>
-            <span style="font-size: 30px">จัดส่งแล้ว</span><br>
-            <span style="font-size: 30px">Tracking on.&nbsp;EW618050162TH </span>
-            {{--<span>กำลังตรวจสอบ</span>--}}
-            {{--<span >จัดส่งแล้ว</span>--}}
-        </div>
-    </section>
+    <!-- shopheader -->
+    @include('layout.component.shopheader')
+
     <hr>
     <!--  ตรวจสอบสถานะการส่ง-->
     <h5>หลักฐานการโอน</h5>
