@@ -88,7 +88,7 @@
                                     </a> </td>
                                 <td>{{$row->phone}}</td>
                                 <td>{{$row->name}}</td>
-                                <td>{{$row->updated_at}}</td>
+                                <!-- updated_at -->
                                 <td>{{$row->product_cost}}</td>
                                 <td>{{$row->ship_cost}}</td>
                                 <th>

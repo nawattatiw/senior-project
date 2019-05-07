@@ -110,27 +110,26 @@
             <div class="text header"><h5>ช่องทางการชำระเงิน</h5></div>
             <div class="text-pull-left list-group-item list-group-item-action list-group-item-secondary">
                 <img src="{{ asset("/images/logo.png") }}" width="80px" hight="70px" class="rounded float-left" >
-                <p> โอนเข้าบีญชีธนาคาร กสิกรไทย
+                <p> โอนเข้าบัญชีธนาคาร กสิกรไทย
                     <br>&nbsp;สาขา จามจุรี
                     <br>&nbsp;เลขบัญชี&nbsp;<FONT color="#33D8F9">2037485625</FONT>
                     <br>&nbsp;ชื่อบัญชี บริษัท ชัญญา จำกัด</p>
             </div>
         </div>
+        <!-- input data  -->
+        <div class="form-group">
+            <label for="exampleFormControlFile1">แนบสลิปที่นี : </label>
+            <form method="post" action="{{url('order')}}" enctype="multipart/form-data">
+                {{csrf_field()}}
+                <table class="table">
+                    <input type='file'  name="slip_image" id="imgInp" class="inputfile inputfile-2"/>
+                    <img id="preview_image" width="150px" src="{{$order->slip_image_url}}" alt="" />
+                </table>
         <label>จำนวนเงินที่โอน</label>
         <input id="summary_cost" class="form-control" type="text" name="transtrade" value="" readonly>
         <label>เวลาที่โอน</label>
         <input class="form-control" type="datetime" name="transdate"  value="{{date("d/m/Y H:i:s")}}" readonly >
-
     </div>
-    <!-- input การโอน -->
-    <div class="form-group">
-        <label for="exampleFormControlFile1">แนบสลิปที่นี : </label>
-        <form method="post" action="{{url('order')}}" enctype="multipart/form-data">
-            {{csrf_field()}}
-            <table class="table">
-                <input type='file'  name="slip_image" id="imgInp" class="inputfile inputfile-2"/>
-                <img id="preview_image" width="150px" src="{{$order->slip_image_url}}" alt="" />
-            </table>
             <hr>
             <div class="text header"><h5>ชื่อ รายละเอียดการจัดส่ง</h5></div>
             <div class="container">
@@ -139,6 +138,7 @@
                 <input class="form-control" type="hidden" name="order_id" value="{{$order->order_id}}" >
                 <input class="form-control" type="hidden" name="ship_plan" id="ship_plan_input" value="{{$order->ship_plan}}" >
                 <input class="form-control" type="hidden" name="ship_cost" id="ship_cost_input" value="{{$order->ship_cost}}" >
+                <input class="form-control" type="hidden" name="total" id="total_cost" value="{{$order->total}}" >
 
 
                <label>ชื่อ และ นามสกุล</label>

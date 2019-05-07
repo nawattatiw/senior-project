@@ -63,32 +63,17 @@
         <h3 align="center">สร้างรายการขาย</h3>
         <form method="post" action="{{url('orderproduct')}}">
           {{ csrf_field() }}
-          <form>
-            <div class="form-group col-md-5">
-              <div class="row">
+            <div class="row">
+              <div class="col">
                 <label for="inputAddress">บิลเลขที่</label>
-                <input type="text" class="form-control"  name="order_id" value="{{$order->order_id}}">
-
+                <input type="text" class="form-control" name="order_id" value="{{$order->order_id}}">
               </div>
-            </div>
-            <div class="form-group col-md-5">
-              <div class="row">
+              <div class="col">
                 <label for="inputAddress">เบอร์โทรติดต่อลูกค้า</label>
-                <input type="text" class="form-control"  name="billaddress" value="{{$order->phone}}">
+                <input type="text" class="form-control" name="billaddress" value="{{$order->phone}}">
               </div>
-            </div>
-
-            <div class="form-group col-md-5">
-              <div class="row">
-                <label for="inputAddress">Onelink</label>
-                <div class="col-sm-12">
-                  <input type="text" class="form-control"  name="link" value="{{ URL("order/$order->order_id") }}" readonly>
                 </div>
-              </div>
-            </div>
-
-            <hr>
-
+                <br>
             <div class="form-row">
               <div class="form-group">
                 <label for="productid" style="width:100%;">สินค้า</label>
@@ -103,12 +88,20 @@
                 <input type="number" id="amount" class="form-control" name="amount" >
               </div>
               <div class="form-group col-md-4">
-                <label for="price">ราคา</label>
+                <label for="price">ราคาต่อชิ้น</label>
                 <input type="number" id="price" class="form-control" name="price" >
               </div>
               <div class="form-group col-md-4">
-                <label for="total">ราคาครวมทั้งหมด</label>
+                <label for="total">ราคารวม</label>
                 <input type="text"  id="total"  class="form-control" name="total" >
+              </div>
+            </div>
+            <div class="form-group col-md-5">
+              <div class="row">
+                <label for="inputAddress">Onelink</label>
+                <div class="col-sm-12">
+                  <input type="text" class="form-control"  name="link" value="{{ URL("order/$order->order_id") }}" readonly>
+                </div>
               </div>
             </div>
             <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>

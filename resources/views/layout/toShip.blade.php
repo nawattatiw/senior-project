@@ -74,20 +74,21 @@
       <br>
       <div class="text-pull-left list-group-item list-group-item-action list-group-item-secondary">
           <img src="{{ asset("/images/logo.png") }}" width="80px" hight="70px" class="rounded float-left" >
-          <p> โอนเข้าบีญชีธนาคาร กสิกรไทย
+          <p> โอนเข้าบัญชีธนาคาร กสิกรไทย
               <br>&nbsp;สาขา จามจุรี
               <br>&nbsp;เลขบัญชี&nbsp;<FONT color="#33D8F9">2037485625</FONT>
               <br>&nbsp;ชื่อบัญชี บริษัท ชัญญา จำกัด</p>
             </div>
+            <br>
+            <span class="pull-left"> สลิป :&nbsp;</span>
+            <img  class="img-center" id="preview_image"  src="{{$order->slip_image_url}}" alt=""/>
             @foreach($orderpd as $row)
               <span class="pull-left"> จำนวนเงินที่โอน :&nbsp;</span>
-              <h2 class="pull-right"><FONT color="#33FF6B">{{$order->total}}</h2></FONT><td>
+              <h2 class="pull-right"><FONT color="#33FF6B">{{$order->total}}&nbsp;บาท</h2></FONT><td>
           @endforeach
             <br><br>
             <span class="pull-left"> วันเวลาที่โอน :&nbsp;</span>
              <span class="pull-right">{{$address->updated_at}}</span><br><br>
-             <span class="pull-left"> สลิป :&nbsp;</span><br>
-            <img  class="img-center" id="preview_image"  src="{{$order->slip_image_url}}" alt=""/>
     </div>
     <hr>
     <!-- ตรวจสอบสถานะการส่ง -->

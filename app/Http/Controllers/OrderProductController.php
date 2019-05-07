@@ -163,13 +163,10 @@ class OrderProductController extends Controller
 
        $orders = Orders::join('address', 'orders.phone', '=', 'address.phonenumber')->get();
 
-
-
 //        $data =  $order_products_list =
 //            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
 //            ->select('order_products.*', 'products.name', 'products.sku' )->get();
-
-        return view('layout.orderlist',[  "page" => $page, "orders" => $orders],compact('data'));
+        return view('layout.orderlist',[  "page" => $page, "orders" => $orders],compact('orders'));
     }
 
     public function statistic(){

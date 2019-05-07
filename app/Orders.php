@@ -16,13 +16,16 @@ class Orders extends Model{
         } else if ($this->status == "TO CHECK") {
             return "ตรวจสอบ";
         }else if ($this->status == "TO SHIP") {
-            return "จัดส่ง";
+            return "กำลังจัดส่งสินค้า";
         }else{
-            return "สำเร็จ";
+            return "สำเร็จ ";
         }
     }
 
-
+    public function getDateFormat()
+    {
+    return 'Y-m-d H:i:s.u';
+    }
 //   public function getDateFormat()
 // {
 //      return 'Y-m-d H:i:s.u';

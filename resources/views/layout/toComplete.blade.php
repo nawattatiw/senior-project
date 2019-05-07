@@ -82,7 +82,7 @@
       <br>
       <div class="text-pull-left list-group-item list-group-item-action list-group-item-secondary">
           <img src="{{ asset("/images/logo.png") }}" width="80px" hight="70px" class="rounded float-left" >
-          <p> โอนเข้าบีญชีธนาคาร กสิกรไทย
+          <p> โอนเข้าบัญชีธนาคาร กสิกรไทย
               <br>&nbsp;สาขา จามจุรี
               <br>&nbsp;เลขบัญชี&nbsp;<FONT color="#33D8F9">2037485625</FONT>
               <br>&nbsp;ชื่อบัญชี บริษัท ชัญญา จำกัด</p>
