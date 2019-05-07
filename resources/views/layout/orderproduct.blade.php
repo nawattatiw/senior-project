@@ -12,6 +12,7 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/css/custom.css">
 </head>
 <body>
 
@@ -74,28 +75,31 @@
               </div>
                 </div>
                 <br>
-            <div class="form-row">
-              <div class="form-group">
+                <div class="row">
+              <div class="col-md-6 ">
                 <label for="productid" style="width:100%;">สินค้า</label>
                 <select class="custom-select" name="product_id">
                   @foreach($products as $product)
                     <option  value="{{$product->no}}">{{$product->name}}</option>
                   @endforeach
                 </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="price">ราคารวม</label>
+                  <input type="text"  id="total"  class="form-control" name="total">
+                </div>
               </div>
-              <div class="form-group col-md-3">
-                <label for="amount">จำนวน</label>
-                <input type="number" id="amount" class="form-control" name="amount" >
+              <div class="row">
+                <div class="col-md-4">
+                  <label for="price">ราคาต่อชิ้น</label>
+                  <input type="number" id="price" class="form-control" name="price">
+                </div>
+                <div class="col-md-4">
+                  <label for="price">ราคารวม</label>
+                  <input type="text"  id="total"  class="form-control" name="total">
+                </div>
+                  <button type="submit" class="btn btn-primary setbtn">เพิ่มรายการ</button>
               </div>
-              <div class="form-group col-md-4">
-                <label for="price">ราคาต่อชิ้น</label>
-                <input type="number" id="price" class="form-control" name="price" >
-              </div>
-              <div class="form-group col-md-4">
-                <label for="total">ราคารวม</label>
-                <input type="text"  id="total"  class="form-control" name="total" >
-              </div>
-            </div>
             <div class="form-group col-md-5">
               <div class="row">
                 <label for="inputAddress">Onelink</label>
@@ -104,7 +108,8 @@
                 </div>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
+              <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
+            <!--  -->
           </form>
         </form>
         <hr>
