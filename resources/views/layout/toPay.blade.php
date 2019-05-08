@@ -40,8 +40,7 @@
                     <tr>
                         <td>{{$row->name}}</td>
                         <td>{{$row->amount}}</td>
-                        <td>{{$row->price
-                        }}</td>
+                        <td>{{$row->price}}</td>
                     </tr>
                 @endforeach
             </tbody>
@@ -138,7 +137,7 @@
                 <input class="form-control" type="hidden" name="order_id" value="{{$order->order_id}}" >
                 <input class="form-control" type="hidden" name="ship_plan" id="ship_plan_input" value="{{$order->ship_plan}}" >
                 <input class="form-control" type="hidden" name="ship_cost" id="ship_cost_input" value="{{$order->ship_cost}}" >
-                <input class="form-control" type="hidden" name="total" id="total_cost" value="{{$order->total}}" >
+                <input class="form-control" type="hidden" name="total" id="total" value="{{$order->total}}" >
 
 
                <label>ชื่อ และ นามสกุล</label>

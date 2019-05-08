@@ -54,9 +54,10 @@
         <div class="container-fluid">
 
 
-            <a href="{{url("orderlist?page=all")}}"> <button class="btn btn-outline-info"> All </button> </a>
-            <a href="{{url("orderlist?page=check")}}"><button class="btn btn-outline-info" > To Check </button></a>
-            <a href="{{url("orderlist?page=ship")}}"> <button class="btn btn-outline-info"> To Ship </button></a>
+            <a href="{{url("orderlist?page=all")}}"> <button class="btn btn-outline-info"> ทั้งหมด </button> </a>
+            <a href="{{url("orderlist?page=check")}}"><button class="btn btn-outline-info" > ตรวจสอบ </button></a>
+            <a href="{{url("orderlist?page=ship")}}"> <button class="btn btn-outline-info"> จัดส่ง </button></a>
+            <button class="btn btn-outline-info" onclick="refreshtable()"id="rftable">refresh</button>
 
             <div class="container">
                 <div class="row">
@@ -67,12 +68,10 @@
                         <thead>
                         <tr>
                             <th>Order ID</th>
-                            <th>Phone</th>
-                            <th>ชื่อ</th>
+                            <th>เบอร์โทรศัพท์</th>
+                            <th>วันที่เปิดบิล</th>
                             <th>วันที่แก้ไข</th>
-                            <th>ราคาของ</th>
-                            <th>ราคาส่ง</th>
-                            <th>รายละเอียด</th>
+                            <th>ยอดรวม</th>
                             <th>สถานะ</th>
                             <th>Action</th>
                         </tr>
@@ -87,7 +86,6 @@
 
                                     </a> </td>
                                 <td>{{$row->phone}}</td>
-                                <td>{{$row->name}}</td>
                                 <!-- updated_at -->
                                 <td>{{$row->product_cost}}</td>
                                 <td>{{$row->ship_cost}}</td>

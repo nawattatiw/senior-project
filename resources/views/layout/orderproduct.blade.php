@@ -61,7 +61,14 @@
     <div class="container-fluid">
       <div class="container ">
         <br>
+        <div class="row">
+          <div class="col-md-10">
         <h3 align="center">สร้างรายการขาย</h3>
+      </div>
+            <div class="col-md-2">
+          <a class="btn btn-primary pull-right" href="/orderproduct" role="button">สร้างรายการใหม่</a>
+        </div>
+      </div>
         <form method="post" action="{{url('orderproduct')}}">
           {{ csrf_field() }}
             <div class="row">
@@ -85,10 +92,11 @@
                 </select>
                 </div>
                 <div class="col-md-4">
-                  <label for="price">ราคารวม</label>
-                  <input type="text"  id="total"  class="form-control" name="total">
+                  <label for="amount">จำนวน</label>
+                  <input type="text"  id="amount"  class="form-control" name="amount">
                 </div>
               </div>
+              <form class ="form-inline">
               <div class="row">
                 <div class="col-md-4">
                   <label for="price">ราคาต่อชิ้น</label>
@@ -96,22 +104,49 @@
                 </div>
                 <div class="col-md-4">
                   <label for="price">ราคารวม</label>
-                  <input type="text"  id="total"  class="form-control" name="total">
+                  <input type="text"  id="total"  class="form-control" name="total"></input>
                 </div>
-                  <button type="submit" class="btn btn-primary setbtn">เพิ่มรายการ</button>
+                <div class="col-md-4">
+                  <button type="submit" class="btn btn-primary"style="margin-top: 2rem;">เพิ่มรายการ</button>
+                </div>
               </div>
-            <div class="form-group col-md-5">
-              <div class="row">
+            </form>
+            <div class="row">
+              <div class="col-md-4">
                 <label for="inputAddress">Onelink</label>
-                <div class="col-sm-12">
-                  <input type="text" class="form-control"  name="link" value="{{ URL("order/$order->order_id") }}" readonly>
-                </div>
+                <input type="text" class="form-control"  name="link" value="{{ URL("order/$order->order_id") }}" readonly>
               </div>
+                <div class="col-md-4">
+              <button type="button" class="btn btn-primary" style="margin-top: 2rem;"data-toggle="modal" data-target="#popup">เสร็จสิ้น</button>
             </div>
-              <button type="submit" class="btn btn-primary">เพิ่มรายการ</button>
-            <!--  -->
+            </div>
+
+                <!-- popup -->
+                  <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLongTitle">สร้างรายการขายสำเร็จ</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="input-group mb-12">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="basic-addon3">ออร์เดอร์ที่ {{$order->order_id}}</span>
+                            </div>
+                              <button  onclick="copylink()">คัดลอกลิงค์</button>
+                          </div>
+                          <input type="text" class="form-control"  id="link"name="link" value="{{ URL("order/$order->order_id") }}" >
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-primary" data-dismiss="modal">ตกลง</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
           </form>
-        </form>
         <hr>
         <!-- show Order-->
       </div>
@@ -137,7 +172,7 @@
                 <td>{{$row->name}}</td>
                 <td>{{$row->sku}}</td>
                 <td>{{$row->amount}}</td>
-                <td>{{$row->price}}</td>
+                <td>{{$row->total}}</td>
                 <td>
                   <form method="post" class ="delete_form" action="{{action('OrderProductController@destroy',$row['id'])}}">
                     {{csrf_field()}}
@@ -145,16 +180,17 @@
                     <button type ="hidden" class="btn btn-danger">DELETE</button>
                   </form>
                 </td>
-            </tr>
-            @endforeach
-          </table>
+              </tr>
+              @endforeach
+              <tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- /#page-content-wrapper -->
+    <!-- /#page-content-wrapper -->
 
-</div>
+  </div>
 
 
 
@@ -197,6 +233,12 @@
             }
         });
     });
+    function copylink() {
+      var copyText = document.getElementById("link");
+      copyText.select();
+      document.execCommand("copy");
+      alert("คัดลอกลิงค์: " + copyText.value);
+    }
 </script>
 </body>
 </html>

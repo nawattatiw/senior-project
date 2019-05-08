@@ -58,13 +58,15 @@ class AddressController extends Controller
         $phonenumber = $request->get('phonenumber');
         $ship_plan = $request->get('ship_plan');
         $ship_cost = $request->get('ship_cost');
+        $total = $request->get('total');
 
         $order->phone = $phonenumber;
         $order->ship_plan = $ship_plan;
         $order->ship_cost = $ship_cost;
         $order->slip_image_url = $url;
+        $order->total= $total;
         $order->status = "TO CHECK";
-
+        dd($order);
         $order->save();
 
         $address = AddressUser::where("phonenumber",$phonenumber)->first();
