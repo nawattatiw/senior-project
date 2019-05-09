@@ -18,7 +18,7 @@ Route::resource('tocheck', 'AddressController');
 Route::resource('tocomplete', 'AddressController');
 Route::resource('order', 'AddressController');
 Route::get('orderlist', 'OrderProductController@list');
-Route::get('customerlist', 'AddressController@list');
+
 Route::get('statistic', 'OrderProductController@statistic');
 Route::get('product', 'ProductController@index');
 
@@ -29,3 +29,6 @@ GET, POST , PATCH, DESTROY, PUT
 */
 Route::get('/search','SearchController@search');
 Route::get('orderregisterdata','TestController@index');
+
+
+Route::get('customerlist', 'AddressController@list');

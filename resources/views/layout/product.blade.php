@@ -99,7 +99,7 @@
                                 <td>{{$row->id}}</td>
                                 <td>{{$row->sku}}</td>
                                 <td>{{$row->name}}</td>
-                                <td>{{$row->product_type_id}}</td>
+                                <td>{{$row->product_type}}</td>
                                 <td>{{$row->remaining}}</td>
                                 <td>{{$row->min_stock}}</td>
                                 <th><a href="#" data-toggle="modal" data-target="#myModal"><img width="150px" src="{{asset($row->slip_image_url)}}" alt=""></a></th>

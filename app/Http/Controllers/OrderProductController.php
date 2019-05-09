@@ -149,9 +149,11 @@ class OrderProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
+
         $order_products = orderproduct::find($id);
+
         $order_products->delete();
         return redirect()->route('orderproduct.index')->with('success', 'ลบข้อมูลเรียบร้อย');
       }

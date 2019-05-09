@@ -60,6 +60,10 @@
       {{--</div>--}}
     </nav>
 
+    <button class="btn btn-primary" id="back-button">
+      <
+    </button>
+
     <div class="container-fluid">
       <div class="container ">
         <br>
@@ -95,7 +99,7 @@
                 </div>
                 <div class="col-md-4">
                   <label for="amount">จำนวน</label>
-                  <input type="text"  id="amount"  class="form-control" name="amount">
+                  <input type="number"  id="amount"  class="form-control" name="amount">
                 </div>
               </div>
               <form class ="form-inline">
@@ -119,11 +123,12 @@
                 <input type="text" class="form-control"  name="link" value="{{ URL("order/$order->order_id") }}" readonly>
               </div>
                 <div class="col-md-4">
-              <button type="button" class="btn btn-primary" style="margin-top: 2rem;"data-toggle="modal" data-target="#popup">เสร็จสิ้น</button>
+              <button type="button" id="button-done" class="btn btn-primary" style="margin-top: 2rem;"data-toggle="modal" data-target="#popup">เสร็จสิ้น</button>
             </div>
             </div>
 
                 <!-- popup -->
+
                   <div class="modal fade" id="popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
@@ -162,25 +167,28 @@
           <table class="table table-bordered table-striped" style="width: 100%">
             <thead>
             <tr>
+              <th>ลำดับ</th>
               <th>ชื่อ</th>
-              <th>sku</th>
+              <th>Product id</th>
               <th>จำนวน</th>
-              <th>ราคารวม</th>
+              <th>ราคา</th>
               <th>ลบบิล</th>
             </tr>
             </thead>
             <tbody>
 
             <tr>
+              @php $index = 1; @endphp
               @foreach($orderpd as $row)
-                <td>{{$row->name}}</td>
+                <td>{{$index++}}</td>
                 <td>{{$row->sku}}</td>
+                <td>{{$row->name}}</td>
                 <td>{{$row->amount}}</td>
                 <td>{{$row->total}}</td>
                 <td>
                   <form method="post" class ="delete_form " action="{{action('OrderProductController@destroy',$row['id'])}}">
                     {{csrf_field()}}
-                    <input  type="hidden" name="_method" value="DELETE" />
+                    <input  type="hidden" name="order_product_id" value="{{$row->id}}" />
                     <button type ="hidden" class="btn btn-danger">DELETE</button>
                   </form>
                 </td>
@@ -204,6 +212,10 @@
 <!-- $order -->
 <script type ="text/javascript">
 
+
+    $("#back-button").click(function () {
+        window.location.replace("{{url("orderlist")}}");
+    });
 
     $("#menu-toggle").click(function(e) {
         e.preventDefault();

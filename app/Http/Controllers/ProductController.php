@@ -14,7 +14,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-      $products = Product::paginate(10);
+
+      $products = Product::join('product_types', 'products.product_type_id', '=', 'product_types.no')
+          ->select('products.*', 'product_types.name as product_type' )->get();
       return view('layout.product',compact('products'));
     }
 

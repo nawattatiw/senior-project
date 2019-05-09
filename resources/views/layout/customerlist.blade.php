@@ -57,7 +57,7 @@
                     <table id="customerlistt" class="table table-bordered table-striped" style="width: 100%">
                         <thead>
                         <tr>
-                            <th>Order ID</th>
+                            <th>Customer ID</th>
                             <th>เบอร์โทรศัพท์</th>
                             <th>email</th>
                             <th>ชื่อ-นามสกุล</th>
@@ -69,11 +69,11 @@
                         <tbody>
 
                         <tr>
-                            @foreach($orders as $row)
-                                <td><a href="{{url("order")."/".$row->order_id}}">
-                                        {{$row->order_id}}
-                                    </a> </td>
-                                <td>{{$row->phone}}</td>
+                            @foreach($addressUser as $row)
+                                <td>
+                                        {{$row->id}}
+                                    </td>
+                                <td>{{$row->phonenumber}}</td>
                                 <td>{{$row->email}}</td>
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->address}}{{ $row->district }}&nbsp;{{ $row->province }}

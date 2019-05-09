@@ -305,14 +305,13 @@ class AddressController extends Controller
      */
      public function list(){
 
-        $page = request()->has('page') ? request()->get('page') : 'all';
 
-        $orders = Orders::join('address', 'orders.phone', '=', 'address.phonenumber')->get();
+        $address = AddressUser::get();
 
  //        $data =  $order_products_list =
  //            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
  //            ->select('order_products.*', 'products.name', 'products.sku' )->get();
-         return view('layout.customerlist',[  "page" => $page, "orders" => $orders],compact('orders'));
+         return view('layout.customerlist',[  "addressUser" => $address],compact('orders'));
      }
     public function update(Request $request, $id)
     {

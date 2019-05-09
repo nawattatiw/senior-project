@@ -94,7 +94,9 @@
                                         {{ $row->address." ".$row->sub_district." ".$row->district." ".$row->province." ".$row->zipcode }}
                                     @elseif($page == "check")
 
-                                      <a href="#" data-toggle="modal" data-target="#myModal"><img width="150px" src="{{asset($row->slip_image_url)}}" alt=""></a>
+                                      <a href="#" data-toggle="modal" data-target="#myModal" >
+                                          <img class="image-click" width="150px" src="{{asset($row->slip_image_url)}}" alt="">
+                                      </a>
 
                                     @elseif($page == "ship")
                                         {{ $row->address." ".$row->sub_district." ".$row->district." ".$row->province." ".$row->zipcode }}
@@ -168,7 +170,7 @@
     <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
       <div class="modal-dialog">
             <div class="modal-body">
-                <img width="450px" src="{{asset($row->slip_image_url)}}"  class="img-responsive">
+                <img width="450px" src=""  id="image-modal" class="img-responsive">
         </div>
       </div>
     </div>
@@ -180,6 +182,12 @@
 <!-- $order -->
 <script type ="text/javascript">
 
+
+    $(".image-click").click(function () {
+
+        var image_link = $(this).attr('src');
+        $("#image-modal").attr('src',image_link);
+    });
 
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
