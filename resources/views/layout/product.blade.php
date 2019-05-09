@@ -76,44 +76,47 @@
         <div class="container-fluid">
             <div class="container">
                 <div class="row">
-                    <h3 align="center">รายการขาย</h3>
+                    <h3 align="center">รายการสินค้า</h3>
                 </div>
                 <div class="row">
-                    <table id="ordertable" class="table table-bordered table-striped" style="width: 100%">
+                    <table id="product" class="table table-bordered table-striped" style="width: 100%">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>No</th>
-                            <th>Sku</th>
-                            <th>unit</th>
-                            <th>size</th>
-                            <th>remaining</th>
-                            <th>minstock</th>
-                            <th>Default_price</th>
+                            <th>รหัสสินค้า</th>
+                            <th>sku</th>
+                            <th>ชื่อสินค้า</th>
+                            <th>ชนิดสินค้า</th>
+                            <th>คงเหลือ</th>
+                            <th>ปริมาณสินค้าขั้นต่ำ</th>
+                            <th>รูปภาพ</th>
+                            <th>วันที่แก้ไข</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             @foreach($products as $row)
 
-                                <td>{{$row->name}}</td>
-                                <td>{{$row->no}}</td>
+                                <td>{{$row->id}}</td>
                                 <td>{{$row->sku}}</td>
-                                <td>{{$row->unit}}</td>
-                                <td>{{$row->size}}</td>
+                                <td>{{$row->name}}</td>
+                                <td>{{$row->product_type_id}}</td>
                                 <td>{{$row->remaining}}</td>
                                 <td>{{$row->min_stock}}</td>
+                                <th><a href="#" data-toggle="modal" data-target="#myModal"><img width="150px" src="{{asset($row->slip_image_url)}}" alt=""></a></th>
                                 <td>{{$row->default_price}}</td>
                         </tr>
                         @endforeach
                     </table>
-                    {{$products->links()}}
                 </div>
             </div>
         </div>
     </div>
     <!-- /#page-content-wrapper -->
-
+<script>
+$(document).ready( function () {
+    $('#product').DataTable();
+} );
+</script>
 </div>
 </body>
 </html>
