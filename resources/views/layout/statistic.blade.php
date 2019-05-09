@@ -60,7 +60,9 @@
     <div class="container-fluid">
       <div class="container ">
         <br>
-        <h3 align="center">Statistic</h3>
+        <div class="row">
+            <h3 align="center">รายการขาย</h3>
+          </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="productid" style="width:100%;">สินค้า</label>
@@ -81,6 +83,13 @@
                 <input type="text"  id="total"  class="form-control" name="total" >
               </div>
             </div>
+            <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+              </div>
         <hr>
         <!-- show Order-->
       </div>
@@ -131,6 +140,9 @@
             }
         });
     });
+    $(function () {
+               $('#datetimepicker1').datetimepicker();
+           });
 </script>
 </body>
 </html>

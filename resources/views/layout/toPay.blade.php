@@ -32,7 +32,7 @@
             <tr>
                 <th>สินค้า</th>
                 <th>จำนวน</th>
-                <th>ราคา</th>
+                <th>ราคารวม</th>
             </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                     <tr>
                         <td>{{$row->name}}</td>
                         <td>{{$row->amount}}</td>
-                        <td>{{$row->price}}</td>
+                        <td>{{$row->total}}</td>
                     </tr>
                 @endforeach
             </tbody>

@@ -21,7 +21,7 @@
 
     <hr>
     <!--  ตรวจสอบสถานะการส่ง-->
-    <h5>หลักฐานการโอน</h5>
+    <h5>ตรวจสอบสถานะการส่งได้ที่</h5>
     <div class ="container list-group-item list-group-item-action">
       <span class="pull-left">Tracking EW618050162TH</span><br>
       <a href="http://track.thailandpost.co.th/tracking/default.aspx" target="_blank">ตรวจสอบสถานะการส่ง</a><p>
@@ -36,7 +36,7 @@
             <tr>
                 <th>สินค้า</th>
                 <th>จำนวน</th>
-                <th>ราคา</th>
+                <th>ราคารวม</th>
             </tr>
             </thead>
             <tbody>
