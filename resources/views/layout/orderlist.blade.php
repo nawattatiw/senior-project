@@ -57,7 +57,6 @@
             <a href="{{url("orderlist?page=all")}}"> <button class="btn btn-outline-info"> ทั้งหมด </button> </a>
             <a href="{{url("orderlist?page=check")}}"><button class="btn btn-outline-info" > ตรวจสอบ </button></a>
             <a href="{{url("orderlist?page=ship")}}"> <button class="btn btn-outline-info"> จัดส่ง </button></a>
-            <button class="btn btn-outline-info" onclick="refreshtable()"id="rftable">refresh</button>
 
             <div class="container">
                 <div class="row">
@@ -72,6 +71,7 @@
                             <th>วันที่เปิดบิล</th>
                             <th>วันที่แก้ไข</th>
                             <th>ยอดรวม</th>
+                            <th>หลักฐานการโอน</th>
                             <th>สถานะ</th>
                             <th>Action</th>
                         </tr>
@@ -94,7 +94,7 @@
                                         {{ $row->address." ".$row->sub_district." ".$row->district." ".$row->province." ".$row->zipcode }}
                                     @elseif($page == "check")
 
-                                        <img width="150px" src="{{asset("images/slip.jpg")}}" alt="">
+                                      <a href="#" data-toggle="modal" data-target="#myModal"><img width="150px" src="{{asset($row->slip_image_url)}}" alt=""></a>
 
                                     @elseif($page == "ship")
                                         {{ $row->address." ".$row->sub_district." ".$row->district." ".$row->province." ".$row->zipcode }}
@@ -116,19 +116,18 @@
                                 <td>
                                     @if($page == "all")
                                     <a href="{{url("orderproduct")."/".$row->order_id}}">
-                                      <button type ="button" class="btn btn-primary">EDIT</button>
+                                      <button type ="button" class="btn btn-primary">แก้ไข</button>
                                     </a>
                                     @elseif($page == "check")
 
                                         <select class="status_select">
-                                            <option>Pending</option>
-                                            <option>Approve</option>
-                                            <option>Reject</option>
+                                            <option>รอตรวจสอบ</option>
+                                            <option>ผ่าน</option>
+                                            <option>ไม่ผ่าน</option>
                                         </select>
-                                        <a href="{{url("orderproduct")."/".$row->order_id}}">
-                                          <button type ="button" class="btn btn-primary">EDIT</button>
+                                        <a href="{{url("orderproduct")."/".$row->order_id}}"><br>
+                                          <button type ="button" class="btn btn-primary">แก้ไข</button>
                                         </a>
-
                                     @elseif($page == "ship")
 
                                         <select class="status_select">
@@ -136,9 +135,11 @@
                                             <option>Sent</option>
                                         </select>
                                         <a href="{{url("orderproduct")."/".$row->order_id}}">
-                                          <button type ="button" class="btn btn-primary">EDIT</button>
+                                          <button type ="button" class="btn btn-primary">แก้ไข</button>
                                         </a>
                                     @endif
+
+
 
 
 
@@ -164,7 +165,13 @@
         </div>
     </div>
     <!-- /#page-content-wrapper -->
-
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+            <div class="modal-body">
+                <img width="450px" src="{{asset($row->slip_image_url)}}"  class="img-responsive">
+        </div>
+      </div>
+    </div>
 </div>
 
 
@@ -214,12 +221,11 @@
                 'csv', 'excel'
             ]
         });
-
     });
 
     $(".status_select").change(function () {
 
-        alert("Are you sure?");
+        confirm("บันทึกการเปลี่ยนแปลงใช่หรือไม่ ?");
     })
 
 

@@ -13,6 +13,8 @@
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <link rel="stylesheet" href="/css/custom.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
 </head>
 <body>
 
@@ -126,13 +128,15 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
+                          <div class ="container">
+                          <div class ="row">
                           <h5 class="modal-title" id="exampleModalLongTitle">สร้างรายการขายสำเร็จ</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                          <span class="form-control-plaintext" id="staticEmail">รายการขาย ณ วันที่ (ยังไม่เสร็จ)&nbsp;{{$order->order_id}}</span>
                         </div>
+                        </div>
+                      </div>
                         <div class="modal-body">
-                          <div class="input-group mb-12">
+                          <div class="input-group col-mb-4">
                             <div class="input-group-prepend">
                               <span class="input-group-text" id="basic-addon3">ออร์เดอร์ที่ {{$order->order_id}}</span>
                             </div>
@@ -161,7 +165,7 @@
               <th>ชื่อ</th>
               <th>sku</th>
               <th>จำนวน</th>
-              <th>ราคา</th>
+              <th>ราคารวม</th>
               <th>ลบบิล</th>
             </tr>
             </thead>
@@ -174,7 +178,7 @@
                 <td>{{$row->amount}}</td>
                 <td>{{$row->total}}</td>
                 <td>
-                  <form method="post" class ="delete_form" action="{{action('OrderProductController@destroy',$row['id'])}}">
+                  <form method="post" class ="delete_form " action="{{action('OrderProductController@destroy',$row['id'])}}">
                     {{csrf_field()}}
                     <input  type="hidden" name="_method" value="DELETE" />
                     <button type ="hidden" class="btn btn-danger">DELETE</button>
@@ -183,6 +187,8 @@
               </tr>
               @endforeach
               <tr>
+                <td colspan="3" style="background-color: #9fcdff; text-align: right;">ยอดรวมทั้งสิ้น(ยังไม่เสร็จ)</td>
+                <td  id="total_cost" >{{$order->product_cost}}</td>
             </table>
           </div>
         </div>
@@ -224,6 +230,7 @@
 
     }
     $(document).ready(function(){
+       $('.custom-select').select2();
         $('.delete_form').on('submit', function(){
             if(confirm("คุณต้องการลบข้อมูลหรือไม่ ?")) {
                 return true;

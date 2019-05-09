@@ -58,15 +58,15 @@ class AddressController extends Controller
         $phonenumber = $request->get('phonenumber');
         $ship_plan = $request->get('ship_plan');
         $ship_cost = $request->get('ship_cost');
-        $total = $request->get('total');
+
 
         $order->phone = $phonenumber;
         $order->ship_plan = $ship_plan;
         $order->ship_cost = $ship_cost;
         $order->slip_image_url = $url;
-        $order->total= $total;
+        $order->total=$order->product_cost+$ship_cost;
         $order->status = "TO CHECK";
-        dd($order);
+
         $order->save();
 
         $address = AddressUser::where("phonenumber",$phonenumber)->first();
@@ -176,6 +176,7 @@ class AddressController extends Controller
         if($order->ship_plan == ""){
             $order->ship_plan = "ไปรษณีย์-ลงทะเบียน";
             $order->ship_cost = "35";
+            $order->status = "TO SHIP";
         }
         $order->save();
 
@@ -302,6 +303,17 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+     public function list(){
+
+        $page = request()->has('page') ? request()->get('page') : 'all';
+
+        $orders = Orders::join('address', 'orders.phone', '=', 'address.phonenumber')->get();
+
+ //        $data =  $order_products_list =
+ //            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+ //            ->select('order_products.*', 'products.name', 'products.sku' )->get();
+         return view('layout.customerlist',[  "page" => $page, "orders" => $orders],compact('orders'));
+     }
     public function update(Request $request, $id)
     {
         //

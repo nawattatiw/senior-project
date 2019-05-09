@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="utf-8">
-    <title>ProductList</title>
+    <title>CustomerList</title>
     <link rel="stylesheet" href="/css/app.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
@@ -26,9 +26,6 @@
 
 
 
-
-
-
 </head>
 <body>
 
@@ -49,65 +46,42 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
-            {{--<div class="collapse navbar-collapse" id="navbarSupportedContent">--}}
-            {{--<ul class="navbar-nav ml-auto mt-2 mt-lg-0">--}}
-            {{--<li class="nav-item active">--}}
-            {{--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
-            {{--</li>--}}
-            {{--<li class="nav-item">--}}
-            {{--<a class="nav-link" href="#">Link</a>--}}
-            {{--</li>--}}
-            {{--<li class="nav-item dropdown">--}}
-            {{--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-            {{--Dropdown--}}
-            {{--</a>--}}
-            {{--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">--}}
-            {{--<a class="dropdown-item" href="#">Action</a>--}}
-            {{--<a class="dropdown-item" href="#">Another action</a>--}}
-            {{--<div class="dropdown-divider"></div>--}}
-            {{--<a class="dropdown-item" href="#">Something else here</a>--}}
-            {{--</div>--}}
-            {{--</li>--}}
-            {{--</ul>--}}
-            {{--</div>--}}
         </nav>
 
         <div class="container-fluid">
+
             <div class="container">
+                    <h3 align="center">รายการลูกค้า</h3>
+                    <br>
                 <div class="row">
-                    <h3 align="center">รายการขาย</h3>
-                </div>
-                <div class="row">
-                    <table id="ordertable" class="table table-bordered table-striped" style="width: 100%">
+                    <table id="customerlistt" class="table table-bordered table-striped" style="width: 100%">
                         <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>No</th>
-                            <th>Sku</th>
-                            <th>unit</th>
-                            <th>size</th>
-                            <th>remaining</th>
-                            <th>minstock</th>
-                            <th>Default_price</th>
+                            <th>Order ID</th>
+                            <th>เบอร์โทรศัพท์</th>
+                            <th>email</th>
+                            <th>ชื่อ-นามสกุล</th>
+                            <th>ที่อยู่</th>
+
+
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            @foreach($products as $row)
 
+                        <tr>
+                            @foreach($orders as $row)
+                                <td><a href="{{url("order")."/".$row->order_id}}">
+                                        {{$row->order_id}}
+                                    </a> </td>
+                                <td>{{$row->phone}}</td>
+                                <td>{{$row->email}}</td>
                                 <td>{{$row->name}}</td>
-                                <td>{{$row->no}}</td>
-                                <td>{{$row->sku}}</td>
-                                <td>{{$row->unit}}</td>
-                                <td>{{$row->size}}</td>
-                                <td>{{$row->remaining}}</td>
-                                <td>{{$row->min_stock}}</td>
-                                <td>{{$row->default_price}}</td>
+                                <td>{{$row->address}}{{ $row->district }}&nbsp;{{ $row->province }}
+                                  &nbsp;{{ $row->country }}&nbsp;{{ $row->zipcode }}</td>
+
                         </tr>
                         @endforeach
                     </table>
-                    {{$products->links()}}
                 </div>
             </div>
         </div>
@@ -115,5 +89,56 @@
     <!-- /#page-content-wrapper -->
 
 </div>
+
+
+
+
+<!-- $order -->
+<script type ="text/javascript">
+
+
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+
+
+    $("#amount").change(function(){
+
+        calculatePrice();
+    });
+
+    $("#price").change(function(){
+
+        calculatePrice();
+    });
+
+    function calculatePrice(){
+
+        var amount =   $("#amount").val();
+        var price =   $("#price").val();
+
+        $("#total").val(amount * price);
+
+    }
+    $(document).ready(function(){
+      $('#customerlistt').DataTable();
+        $('.delete_form').on('submit', function(){
+            if(confirm("คุณต้องการลบข้อมูลหรือไม่ ?")) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+    });
+
+    $(".status_select").change(function () {
+
+        alert("Are you sure?");
+    })
+
+
+</script>
 </body>
 </html>

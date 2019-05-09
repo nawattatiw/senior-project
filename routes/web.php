@@ -18,6 +18,7 @@ Route::resource('tocheck', 'AddressController');
 Route::resource('tocomplete', 'AddressController');
 Route::resource('order', 'AddressController');
 Route::get('orderlist', 'OrderProductController@list');
+Route::get('customerlist', 'AddressController@list');
 Route::get('statistic', 'OrderProductController@statistic');
 Route::get('product', 'ProductController@index');
 
