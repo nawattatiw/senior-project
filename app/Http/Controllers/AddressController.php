@@ -311,7 +311,7 @@ class AddressController extends Controller
  //        $data =  $order_products_list =
  //            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
  //            ->select('order_products.*', 'products.name', 'products.sku' )->get();
-         return view('layout.customerlist',[  "addressUser" => $address],compact('orders'));
+         return view('layout.customerlist',[  "addressUser" => $address],compact('address'));
      }
     public function update(Request $request, $id)
     {

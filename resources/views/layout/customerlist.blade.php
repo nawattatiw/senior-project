@@ -51,8 +51,9 @@
         <div class="container-fluid">
 
             <div class="container">
-                    <h3 align="center">รายการลูกค้า</h3>
-                    <br>
+              <div class="row">
+                <h3 class="pull left">รายชื่อลูกค้า</h3>
+              </div>
                 <div class="row">
                     <table id="customerlistt" class="table table-bordered table-striped" style="width: 100%">
                         <thead>

@@ -92,10 +92,13 @@
               <h2 class="pull-right"><FONT color="#33FF6B">{{$order->total}}</h2></FONT><td>
           @endforeach
             <br><br>
-            <span class="pull-left"> วันเวลาที่โอน :&nbsp;</span>
-             <span class="pull-right">{{$address->updated_at}}</span><br><br>
-             <span class="pull-left"> สลิป :&nbsp;</span><br>
-            <img  class="img-center" id="preview_image"  src="{{$order->slip_image_url}}" alt=""/>
+            <span class="pull-left"> สลิป :&nbsp;</span><br>
+           <img  class="img-center" id="preview_image"  src="{{$order->slip_image_url}}" alt=""/><br>
+            <span class="pull-left"> จำนวนเงินที่โอน :&nbsp;</span>
+            <h3 class="pull-right" id="total_cost"><FONT color="#33FF6B">{{$order->total}}</h3></FONT><td>
+          <br><br>
+          <span class="pull-left"> วันเวลาที่โอน :&nbsp;</span>
+           <span class="pull-right">{{$address->updated_at}}</span><br><br>
     </div>
     <hr>
     <!-- ตรวจสอบสถานะการส่ง -->
