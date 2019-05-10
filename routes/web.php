@@ -16,6 +16,7 @@ Route::get('/',  'OrderProductController@list');
 Route::resource('toship', 'AddressController');
 Route::resource('tocheck', 'AddressController');
 Route::resource('tocomplete', 'AddressController');
+Route::resource('tocheckfail', 'AddressController');
 Route::resource('order', 'AddressController');
 Route::get('orderlist', 'OrderProductController@list');
 

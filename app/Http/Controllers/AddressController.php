@@ -103,10 +103,10 @@ class AddressController extends Controller
               return $this->generateCustomerToPay($order);
           }elseif($order->status == "TO CHECK"){
               return $this->generateCustomerToCheck($order);
-
+          }elseif($order->status == "TO CHECKFAIL"){
+              return $this->generateCustomerToCheckfail($order);
           }elseif($order->status == "TO SHIP"){
               return $this->generateCustomerToShip($order);
-
           }
           elseif($order->status == "COMPLETE"){
               return $this->generateCustomerToComplete($order);
@@ -196,8 +196,49 @@ class AddressController extends Controller
 
             dd( "No order" );
         }
-
         return view('layout.toCheck', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
+    }
+    public function generateCustomerToCheckfail($order){
+        $order_id = $order->order_id;
+
+        $order_products = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+            ->select('order_products.*', 'products.name', 'products.sku' )
+            ->where("order_products.order_id",$order_id)->get();
+
+
+        // CALCULATE PRODUCT PRICE
+        $product_price = 0 ;
+
+        foreach ($order_products as $product){
+            $product_price = $product_price + $product->total;
+        }
+
+        $order->product_cost  = $product_price;
+        if($order->ship_plan == ""){
+            $order->ship_plan = "ไปรษณีย์-ลงทะเบียน";
+            $order->ship_cost = "35";
+            $order->status = "TO CHECK";
+        }
+        $order->save();
+
+
+        if($order){
+
+            $phone_number = $order->phone;
+
+            $address = AddressUser::where("phonenumber",$phone_number)->first();
+
+            if(!$address){
+                $address = new AddressUser();
+                $address->phonenumber = $phone_number;
+                $address->save();
+            }
+        }else{
+
+            dd( "No order" );
+        }
+
+        return view('layout.toCheckfail', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
     public function generateCustomerToShip($order){

@@ -15,6 +15,8 @@ class Orders extends Model{
             return "ชำระเงิน";
         } else if ($this->status == "TO CHECK") {
             return "ตรวจสอบ";
+        } else if ($this->status == "TO CHECKFAIL") {
+            return "การตรวจสอบไม่สำเร็จ";
         }else if ($this->status == "TO SHIP") {
             return "กำลังจัดส่งสินค้า";
         }else{
@@ -24,7 +26,7 @@ class Orders extends Model{
 
     public function getDateFormat()
     {
-    return 'Y-m-d H:i:s.u';
+    return 'Y-m-d H:i:s';
     }
 //   public function getDateFormat()
 // {

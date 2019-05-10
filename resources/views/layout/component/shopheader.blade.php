@@ -26,10 +26,12 @@
             $level = 1;
         }elseif($order->status == "TO CHECK"){
             $level = 2;
-        }elseif($order->status == "TO SHIP"){
+        }elseif($order->status == "TO CHECKFAIL"){
             $level = 3;
-        }elseif($order->status == "COMPLETE"){
+        }elseif($order->status == "TO SHIP"){
             $level = 4;
+        }elseif($order->status == "COMPLETE"){
+            $level = 5;
         }
 
 
@@ -43,13 +45,13 @@
         <div class="movedown col">
             <i class="fa fa-check-circle @if($level >= 2) active-fa @endif" aria-hidden="true"></i>
         </div>
-        <span  class="line-center "></span>
+        <span  class="line-center"></span>
         <div class="movedown col">
-            <i class="fa fa-archive @if($level >= 3) active-fa @endif" aria-hidden="true"></i>
+            <i class="fa fa-check-circle @if($level >= 4) active-fa @endif" aria-hidden="true"></i>
         </div>
         <span  class="line-center "></span>
         <div class="movedown col ">
-            <i class="fa fa-truck @if($level >= 4) active-fa @endif" aria-hidden="true"></i>
+            <i class="fa fa-truck @if($level >= 5) active-fa @endif" aria-hidden="true"></i>
         </div>
     <div class="text-center text-status">
 
