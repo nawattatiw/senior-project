@@ -195,7 +195,7 @@
               </tr>
               @endforeach
               <tr>
-                <td colspan="3" style="background-color: #9fcdff; text-align: right;">ยอดรวมทั้งสิ้น(ยังไม่เสร็จ)</td>
+                <td colspan="4" style="background-color: #9fcdff; text-align: right;">ยอดรวมทั้งสิ้น</td>
                 <td  id="total_cost" >{{$order->product_cost}}</td>
             </table>
           </div>
