@@ -61,7 +61,7 @@
     </nav>
 
     <button class="btn btn-primary" id="back-button">
-      <
+      ย้อนกลับ
     </button>
 
     <div class="container-fluid">

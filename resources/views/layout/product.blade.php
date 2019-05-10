@@ -102,7 +102,7 @@
                                 <td>{{$row->product_type}}</td>
                                 <td>{{$row->remaining}}</td>
                                 <td>{{$row->min_stock}}</td>
-                                <th><a href="#" data-toggle="modal" data-target="#myModal"><img width="150px" src="{{asset($row->slip_image_url)}}" alt=""></a></th>
+                                <th><a href="#" data-toggle="modal" data-target="#myModal"><img width="150px" src="http://shop.kisrasprint.com{{($row->image_url)}}" alt=""></a></th>
                                 <td>{{$row->default_price}}</td>
                         </tr>
                         @endforeach

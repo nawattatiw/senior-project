@@ -81,7 +81,7 @@
               <br>
               <div class="form-group">
                   <label for="exampleFormControlFile1">แนบสลิปใหม่ได้ที่นี่ : </label>
-                  <form method="post" action="{{url('order')}}" enctype="multipart/form-data">
+                  <form method="post" action="{{url('order/edit?order_id='.$order->order_id)}}" enctype="multipart/form-data">
                       {{csrf_field()}}
                       <table class="table">
                           <input type='file'  name="slip_image" id="imgInp" class="inputfile inputfile-2"/>

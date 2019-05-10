@@ -19,7 +19,7 @@ Route::resource('tocomplete', 'AddressController');
 Route::resource('tocheckfail', 'AddressController');
 Route::resource('order', 'AddressController');
 Route::get('orderlist', 'OrderProductController@list');
-
+Route::post('order/edit', 'AddressController@editimage');
 Route::get('statistic', 'OrderProductController@statistic');
 Route::get('product', 'ProductController@index');
 

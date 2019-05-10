@@ -39,9 +39,9 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+
         $order_id = $request->get('order_id');
         $url = "";
-
         if ($request->hasFile('slip_image')) {
             $image = $request->file('slip_image');
             $name = time().'.'.$image->getClientOriginalExtension();
@@ -358,7 +358,43 @@ class AddressController extends Controller
     {
         //
     }
+    function editimage (Request $request){
+      $order_id = $request->order_id;
+      $checkimagepath = Orders::where("order_id",$order_id)->first();
+      $slip = $checkimagepath->slip_image_url;
+      if(empty($slip)){
+        if ($request->hasFile('slip_image')) {
+            $image = $request->file('slip_image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/slip/');
+            $image->move($destinationPath, $name);
 
+            $url = asset('/images/slip')."/".$name;
+        }else{
+            return  redirect('order/'.$order_id);
+        }
+        $order = Orders::where("order_id",$order_id)->first();
+        $order->slip_image_url = $url;
+        $order->status = "TO CHECK";
+        $order->save();
+      }else{
+        if ($request->hasFile('slip_image')) {
+            $image = $request->file('slip_image');
+            $name = time().'.'.$image->getClientOriginalExtension();
+            $destinationPath = public_path('/images/slip/edit/');
+            $image->move($destinationPath, $name);
+
+            $url = asset('/images/slip/edit')."/".$name;
+        }else{
+            return  redirect('order/'.$order_id);
+        }
+        $order = Orders::where("order_id",$order_id)->first();
+        $order->slip_image_url = $url;
+        $order->status = "TO CHECK";
+        $order->save();
+      }
+      return  redirect('order/'.$order_id);
+    }
     /**
      * Remove the specified resource from storage.
      *
