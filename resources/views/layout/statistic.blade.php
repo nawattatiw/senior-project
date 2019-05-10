@@ -63,26 +63,7 @@
         <div class="row">
             <h3 align="center">รายการขาย</h3>
           </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="productid" style="width:100%;">สินค้า</label>
-                <select class="custom-select" name="product_id">
-                    <option  value="test">test</option>
-                </select>
-              </div>
-              <div class="form-group col-md-3">
-                <label for="amount">จำนวน</label>
-                <input type="number" id="amount" class="form-control" name="amount" >
-              </div>
-              <div class="form-group col-md-4">
-                <label for="price">ราคา</label>
-                <input type="number" id="price" class="form-control" name="price" >
-              </div>
-              <div class="form-group col-md-4">
-                <label for="total">ราคาครวมทั้งหมด</label>
-                <input type="text"  id="total"  class="form-control" name="total" >
-              </div>
-            </div>
+          
             <div class='input-group date' id='datetimepicker1'>
             <input type='text' class="form-control" />
                     <span class="input-group-addon">
