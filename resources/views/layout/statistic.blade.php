@@ -12,6 +12,9 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
 </head>
 <body>
 
@@ -34,44 +37,85 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      {{--<div class="collapse navbar-collapse" id="navbarSupportedContent">--}}
-        {{--<ul class="navbar-nav ml-auto mt-2 mt-lg-0">--}}
-          {{--<li class="nav-item active">--}}
-            {{--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
-          {{--</li>--}}
-          {{--<li class="nav-item">--}}
-            {{--<a class="nav-link" href="#">Link</a>--}}
-          {{--</li>--}}
-          {{--<li class="nav-item dropdown">--}}
-            {{--<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">--}}
-              {{--Dropdown--}}
-            {{--</a>--}}
-            {{--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">--}}
-              {{--<a class="dropdown-item" href="#">Action</a>--}}
-              {{--<a class="dropdown-item" href="#">Another action</a>--}}
-              {{--<div class="dropdown-divider"></div>--}}
-              {{--<a class="dropdown-item" href="#">Something else here</a>--}}
-            {{--</div>--}}
-          {{--</li>--}}
-        {{--</ul>--}}
-      {{--</div>--}}
+
     </nav>
 
     <div class="container-fluid">
       <div class="container ">
         <br>
         <div class="row">
-            <h3 align="center">รายการขาย</h3>
+            <h3 align="center">รายงานการขาย</h3>
           </div>
-          
-            <div class='input-group date' id='datetimepicker1'>
-            <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
+          <div class="col-sm-3">
+            <label for="Datestatistic">Date :</label>
+              <input type="date" class="form-control" id="Date-statistic">
+            </div>
+            <br>
+          <div class="row">
+            <div class="col-sm-3">
+              <div class="card border-dark shadow text-black">
+                <div class="card-body ">
+                  <h5 class="card-title">ยอดขายทั้งหมด</h5>
+                  <p class="card-text">With supporting </p>
                 </div>
               </div>
-        <hr>
+            </div>
+            <div class="col-sm-2">
+              <div class="card border-info shadow text-black">
+                <div class="card-body">
+                  <h5 class="card-title">ตรวจสอบ</h5>
+                  <p class="card-text">With supporting </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="card border-success shadow text-black ">
+                <div class="card-body">
+                  <h5 class="card-title">จัดส่ง</h5>
+                  <p class="card-text">With supporting .</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="card border-warning shadow text-black">
+                <div class="card-body">
+                  <h5 class="card-title">สำเร็จ</h5>
+                  <p class="card-text">With supporting </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div ="container">
+          <label for="tableorder">5 อันดับรายการขายที่ดีสุด :</label>
+          <div class ="row">
+          <table class="table col-8">
+            <br>
+              <thead>
+              <tr>
+                  <th>ลำดับ</th>
+                  <th>ชื่อสินค้า</th>
+                  <th>จำนวน</th>
+                  <th>ราคา</th>
+                  <th>ยอดขาย</th>
+              </tr>
+              </thead>
+              <tbody>
+                      <tr>
+                          <td>test</td>
+                          <td>test</td>
+                          <td>test</td>
+                          <td>test</td>
+                          <td>test</td>
+                      </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+
+
+          <!-- Chart -->
+          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         <!-- show Order-->
       </div>
     </div>
@@ -121,9 +165,66 @@
             }
         });
     });
-    $(function () {
-               $('#datetimepicker1').datetimepicker();
-           });
+          $(function () {
+                     $('#datetimepicker1').datetimepicker();
+                 });
+
+                 // Chart
+                 Highcharts.chart('container', {
+          chart: {
+              type: 'column'
+          },
+          title: {
+              text: 'ยอดขายตามชนิดสินค้า'
+          },
+          subtitle: {
+              text: 'ยอดขายของแต่ละเดือน'
+          },
+          xAxis: {
+              categories: [
+                  'Jan',
+                  'Feb',
+                  'Mar',
+                  'Apr',
+                  'May',
+                  'Jun',
+                  'Jul',
+                  'Aug',
+                  'Sep',
+                  'Oct',
+                  'Nov',
+                  'Dec'
+              ],
+              crosshair: true
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: 'ยอดขาย'
+              }
+          },
+          tooltip: {
+              headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+              pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                  '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+              footerFormat: '</table>',
+              shared: true,
+              useHTML: true
+          },
+          plotOptions: {
+              column: {
+                  pointPadding: 0.2,
+                  borderWidth: 0
+              }
+          },
+          series: [{
+              name: 'ชนิดที่ 1',
+              data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+            }, {
+             name: 'ชนิดที่ 2',
+             data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+          }]
+      });
 </script>
 </body>
 </html>
