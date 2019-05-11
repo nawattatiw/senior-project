@@ -60,114 +60,24 @@
 
             <div class="container">
                 <div class="row">
-                    <h3 align="center">รายการขาย</h3>
+                    <h3 align="center">รายการขาย
+                        @if($page == "all")
+                           ทั้งหมด
+                        @elseif($page == "check")
+                         รอตรวจสอบ
+                        @elseif($page == "ship")
+                            รอจัดส่ง
+                        @endif
+                    </h3>
                 </div>
                 <div class="row">
-                    <table id="ordertable" class="table table-bordered table-striped" style="width: 100%">
-                        <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>เบอร์โทรศัพท์</th>
-                            <th>วันที่เปิดบิล</th>
-                            <th>วันที่แก้ไข</th>
-                            <th>ยอดรวม</th>
-                            <th>หลักฐานการโอน</th>
-                            <th>สถานะ</th>
-                            <th>Action</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                        <tr>
-                            @foreach($orders as $row)
-                                <td><a href="{{url("order")."/".$row->order_id}}">
-
-                                        {{$row->order_id}}
-
-                                    </a> </td>
-                                <td>{{$row->phone}}</td>
-                                <!-- updated_at -->
-                                <td>{{$row->created_at}}</td>
-                                <td>{{$row->updated_at}}</td>
-                                <td>{{$row->product_cost}}</td>
-
-                                <th>
-                                    @if($page == "all")
-                                    <a href="#" data-toggle="modal" data-target="#myModal" >
-                                        <img class="image-click" width="150px" src="{{asset($row->slip_image_url)}}" alt="">
-                                    </a>
-                                    @elseif($page == "check")
-
-                                      <a href="#" data-toggle="modal" data-target="#myModal" >
-                                          <img class="image-click" width="150px" src="{{asset($row->slip_image_url)}}" alt="">
-                                      </a>
-
-                                    @elseif($page == "ship")
-                                    <a href="#" data-toggle="modal" data-target="#myModal" >
-                                        <img class="image-click" width="150px" src="{{asset($row->slip_image_url)}}" alt="">
-                                    </a>
-                                    @endif
-
-
-
-
-                                </th>
-                                <td>
-                                    @if($page == "all")
-                                       {{$row->status}}
-                                    @elseif($page == "check")
-                                        {{$row->status}}
-                                    @elseif($page == "ship")
-                                        {{$row->status}}
-                                    @endif
-                                </td>
-                                <td>
-                                    @if($page == "all")
-                                    <a href="{{url("orderproduct")."/".$row->order_id}}">
-                                      <button type ="button" class="btn btn-primary">แก้ไข</button>
-                                    </a>
-                                    @elseif($page == "check")
-
-                                        <select class="status_select">
-                                            <option  value='toCheck'>รอตรวจสอบ</option>
-                                            <option  value='ToShip'>ผ่าน</option>
-                                            <option  value='To CHECKFAIL'>ไม่ผ่าน</option>
-                                        </select>
-                                        <a href="{{url("orderproduct")."/".$row->order_id}}"><br>
-                                          <button type ="button" class="btn btn-primary">แก้ไข</button>
-                                        </a>
-                                    @elseif($page == "ship")
-
-                                        <select class="status_select">
-                                            <option value='ToShip'>To Ship</option>
-                                            <option value='COMPLETE'>Sent</option>
-                                        </select>
-                                        <a href="{{url("orderproduct")."/".$row->order_id}}">
-                                          <button type ="button" class="btn btn-primary">แก้ไข</button>
-                                        </a>
-                                    @endif
-
-
-
-
-
-
-
-                                    {{--<form method="post" class ="delete_form" action="{{action('OrderProductController@destroy',$row['id'])}}">--}}
-                                    {{--{{csrf_field()}}--}}
-                                    {{--<input  type="hidden" name="_method" value="CONFIRM" />--}}
-                                    {{--<button type ="hidden" class="btn btn-danger">Reject</button>--}}
-                                    {{--</form>--}}
-
-                                    {{--<form method="post" class ="delete_form" action="{{action('OrderProductController@destroy',$row['id'])}}">--}}
-                                    {{--{{csrf_field()}}--}}
-                                    {{--<input  type="hidden" name="_method" value="DELETE" />--}}
-                                    {{--<button type ="hidden" class="btn btn-danger">DELETE</button>--}}
-                                    {{--</form>--}}
-                                </td>
-                        </tr>
-                        @endforeach
-                    </table>
+                    @if($page == "all")
+                        @include('layout.component.tableAll')
+                    @elseif($page == "check")
+                        {@include('layout.component.tableCheck')
+                    @elseif($page == "ship")
+                        @include('layout.component.tableShip')
+                    @endif
                 </div>
             </div>
         </div>
@@ -201,24 +111,7 @@
     });
 
 
-    $("#amount").change(function(){
 
-        calculatePrice();
-    });
-
-    $("#price").change(function(){
-
-        calculatePrice();
-    });
-
-    function calculatePrice(){
-
-        var amount =   $("#amount").val();
-        var price =   $("#price").val();
-
-        $("#total").val(amount * price);
-
-    }
     $(document).ready(function(){
         $('.delete_form').on('submit', function(){
             if(confirm("คุณต้องการลบข้อมูลหรือไม่ ?")) {
@@ -237,22 +130,10 @@
         });
     });
 
-    $(".status_select").change(function () {
 
-        confirm("บันทึกการเปลี่ยนแปลงใช่หรือไม่ ?");
-    })
-    $('select').live('change',function () {
-        var statusVal = $(this).val();
-        alert(statusVal);
-        $.ajax({
-                 type: "POST",
-                 url: "saveStatus.php",
-                 data: {statusType : statusVal },
-                 success: function(msg) {
-                     $('#autosavenotify').text(msg);
-                 }
-      })
-  });
+
+
+
 
 </script>
 </body>

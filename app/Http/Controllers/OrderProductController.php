@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\OrderProduct;
 use App\Product;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class OrderProductController extends Controller
 {
@@ -151,11 +152,10 @@ class OrderProductController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-
-        $order_products = orderproduct::find($id);
-
+        $order_products = orderproduct::where("id",$id)->first();
         $order_products->delete();
-        return redirect()->route('orderproduct.index')->with('success', 'ลบข้อมูลเรียบร้อย');
+
+        return Redirect()->back()->with(['message' => 'ลบข้อมูลเรียบร้อย']);
       }
 
 
@@ -163,17 +163,121 @@ class OrderProductController extends Controller
 
        $page = request()->has('page') ? request()->get('page') : 'all';
 
-       $orders = Orders::join('address', 'orders.phone', '=', 'address.phonenumber')->get();
+       $status = "";
+       if($page == "check"){
+           $status = "TO CHECK";
+       }else if($page == "ship"){
+           $status = "TO SHIP";
+       }
+
+       $orders = Orders::join('address', 'orders.phone', '=', 'address.phonenumber');
+
+       if($status == ""){
+           $orders = $orders->get();
+       }else{
+           $orders = $orders->where("status",$status)->get();
+       }
+
+
+        $order_products_list = OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
+            ->select('order_products.*', 'products.name', 'products.sku' )->get();
+
+       $list_orderpd = [];
+       foreach ($order_products_list as $op){
+           $list_orderpd[$op->order_id] = [];
+       }
+
+        foreach ($order_products_list as $op){
+            $list_orderpd[$op->order_id][] = $op;
+        }
+
 
 //        $data =  $order_products_list =
 //            OrderProduct::join('products', 'order_products.product_id', '=', 'products.no')
 //            ->select('order_products.*', 'products.name', 'products.sku' )->get();
-        return view('layout.orderlist',[  "page" => $page, "orders" => $orders],compact('orders'));
+        return view('layout.orderlist',[  "page" => $page, "orders" => $orders , "list_orderpd" => $list_orderpd],compact('orders'));
+    }
+
+
+    public function updateStatus(Request $request){
+
+
+        $order_id = $request->input('id');
+        $status = $request->input('status');
+
+        $order = Orders::where("order_id",$order_id)->first();
+        $order->status = $status;
+
+        if( $request->input('tracking_no') ){
+            $order->tracking_no = $request->input('tracking_no');
+        }
+
+        $order->save();
+
+        return Redirect()->back()->with(['message' => 'แก้ไข Status เรียบร้อยแล้ว']);
     }
 
     public function statistic(){
 
 
-        return view('layout.statistic');
+        $startDate = Carbon::now()->startOfDay();
+        $endDate = Carbon::now()->endOfDay();
+
+        $sql = "SELECT
+                     summary.*
+                     from
+                    ( select 
+                    SUM(amount) as amount,
+                    SUM(total) as total,
+                    product_name
+                    from 
+                    ( SELECT
+                    order_products.*,
+                    products.`name` as product_name,
+                    products.sku
+                    FROM
+                    order_products
+                    LEFT JOIN products ON order_products.product_id = products.id ) AS op
+                    GROUP BY 
+                    sku
+                    ) summary
+                    ORDER BY total DESC
+                    ";
+
+        $rank = DB::select(DB::raw($sql));
+
+        $orders = Orders::get();
+
+        $total = 0;
+        $pay = 0;
+        $check = 0;
+        $ship = 0;
+        $complete = 0;
+        foreach ($orders as $order){
+            $total = $total + $order->total;
+            if($order->status == "TO PAY"){
+                $pay++;
+            }
+            else if($order->status == "TO CHECK"){
+                $check++;
+            }
+            else if($order->status == "TO SHIP"){
+                $ship++;
+            }
+            else if($order->status == "COMPLETE"){
+                $complete++;
+            }
+        }
+
+        $data = [];
+        $data["rank"] = $rank;
+        $data["total"] = $total;
+        $data["pay"] = $pay;
+        $data["check"] = $check;
+        $data["ship"] = $ship;
+        $data["complete"] = $complete;
+
+
+        return view('layout.statistic',$data);
     }
 }

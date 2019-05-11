@@ -198,6 +198,7 @@ class AddressController extends Controller
         }
         return view('layout.toCheck', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
+
     public function generateCustomerToCheckfail($order){
         $order_id = $order->order_id;
 
@@ -325,6 +326,7 @@ class AddressController extends Controller
         return view('layout.toComplete', ['address'=>$address,"order"=>$order,'orderpd'=>$order_products]);
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -404,5 +406,47 @@ class AddressController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function check(){
+
+
+
+
+        $phone = request()->has('phone') ? request()->get('phone') : '';
+
+        $message = "ไม่มีรายการ";
+
+        if ($phone != ""){
+            $orders =  Orders::where("phone",$phone)->get();
+            if( count($orders) > 0){
+                $message = "";
+                foreach ($orders as $order){
+                    $message = $message."[รายการที่: ".$order->order_id.", สถานะ:".$order->statusName."] " ;
+                }
+
+            }
+        }
+        return $message;
+
+
+    }
+
+    public function test(){
+
+        $phone = request()->has('phone') ? request()->get('phone') : '';
+
+        $url = "http://onelink.kisrasprint.com/statuscheck?phone=".$phone;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($ch);
+        curl_close($ch);
+
+        return $data;
+
     }
 }

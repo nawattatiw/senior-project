@@ -169,26 +169,30 @@
             <thead>
             <tr>
               <th>ลำดับ</th>
-              <th>ชื่อ</th>
               <th>Product id</th>
-              <th>จำนวน</th>
+              <th>ชื่อ</th>
               <th>ราคา</th>
+              <th>จำนวน</th>
+              <th>รวม</th>
               <th>ลบบิล</th>
             </tr>
             </thead>
             <tbody>
 
             <tr>
-              @php $index = 1; @endphp
+              @php $index = 1; $total = 0; @endphp
               @foreach($orderpd as $row)
+                @php  $total = $row->total + $total; @endphp
                 <td>{{$index++}}</td>
                 <td>{{$row->sku}}</td>
                 <td>{{$row->name}}</td>
+                <td>{{$row->price}}</td>
                 <td>{{$row->amount}}</td>
                 <td>{{$row->total}}</td>
                 <td>
-                  <form method="post" class ="delete_form " action="{{action('OrderProductController@destroy',$row['id'])}}">
+                  <form method="post" class ="delete_form " action="{{action('OrderProductController@destroy',$row->id)}}">
                     {{csrf_field()}}
+                    <input type="hidden" name="_method" value="delete" />
                     <input  type="hidden" name="order_product_id" value="{{$row->id}}" />
                     <button type ="hidden" class="btn btn-danger">DELETE</button>
                   </form>
@@ -196,8 +200,8 @@
               </tr>
               @endforeach
               <tr>
-                <td colspan="4" style="background-color: #9fcdff; text-align: right;">ยอดรวมทั้งสิ้น</td>
-                <td  id="total_cost" >{{$order->product_cost}}</td>
+                <td colspan="5" style="background-color: #9fcdff; text-align: right;">ยอดรวมทั้งสิ้น</td>
+                <td  id="total_cost" >{{$total}}</td>
             </table>
           </div>
         </div>

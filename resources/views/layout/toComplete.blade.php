@@ -23,7 +23,7 @@
     <!--  ตรวจสอบสถานะการส่ง-->
     <h5>ตรวจสอบสถานะการส่งได้ที่</h5>
     <div class ="container list-group-item list-group-item-action">
-      <span class="pull-left">Tracking EW618050162TH</span><br>
+      <span class="pull-left">Tracking {{$order->tracking_no}}</span><br>
       <a href="http://track.thailandpost.co.th/tracking/default.aspx" target="_blank">ตรวจสอบสถานะการส่ง</a><p>
     </div>
     <hr>

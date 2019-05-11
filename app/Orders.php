@@ -19,6 +19,8 @@ class Orders extends Model{
             return "การตรวจสอบไม่สำเร็จ";
         }else if ($this->status == "TO SHIP") {
             return "กำลังจัดส่งสินค้า";
+        }else if ($this->status == "EXPIRED") {
+            return "หมดอายุ";
         }else{
             return "สำเร็จ ";
         }
@@ -28,8 +30,11 @@ class Orders extends Model{
     {
     return 'Y-m-d H:i:s';
     }
-//   public function getDateFormat()
-// {
-//      return 'Y-m-d H:i:s.u';
-// }
+
+
+    public function orderproducts()
+    {
+        return $this->hasMany(OrderProduct::class,'order_id');
+    }
+
 }

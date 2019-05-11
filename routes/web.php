@@ -28,8 +28,13 @@ Route::resource('orderproduct', 'OrderProductController');
 /*
 GET, POST , PATCH, DESTROY, PUT
 */
+
+Route::get('statuscheck','AddressController@check');
+Route::get('test','AddressController@test');
+
 Route::get('/search','SearchController@search');
 Route::get('orderregisterdata','TestController@index');
 
 
 Route::get('customerlist', 'AddressController@list');
+Route::get('update', 'OrderProductController@updateStatus');

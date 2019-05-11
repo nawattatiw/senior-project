@@ -12,4 +12,11 @@ class OrderProduct extends Model{
 //    public function product(){
 //      return $this->hasOne(product::class,"name","productid");
 //    }
+
+
+    public function order()
+    {
+        return $this->belongsTo(Orders::class);
+    }
+
 }

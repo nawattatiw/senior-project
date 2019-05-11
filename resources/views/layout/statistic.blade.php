@@ -47,16 +47,24 @@
             <h3 align="center">รายงานการขาย</h3>
           </div>
           <div class="col-sm-3">
-            <label for="Datestatistic">Date :</label>
-              <input type="date" class="form-control" id="Date-statistic">
+            {{--<label for="Datestatistic">Date :</label>--}}
+              {{--<input type="date" class="form-control" id="Date-statistic">--}}
             </div>
             <br>
           <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
               <div class="card border-dark shadow text-black">
                 <div class="card-body ">
-                  <h5 class="card-title">ยอดขายทั้งหมด</h5>
-                  <p class="card-text">With supporting </p>
+                  <h5 class="card-title">ยอดขายรวม</h5>
+                  <p class="card-text">{{$total}} บาท </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-2">
+              <div class="card border-info shadow text-black">
+                <div class="card-body">
+                  <h5 class="card-title">ชำระเงิน</h5>
+                  <p class="card-text">{{$pay}} รายการ </p>
                 </div>
               </div>
             </div>
@@ -64,7 +72,7 @@
               <div class="card border-info shadow text-black">
                 <div class="card-body">
                   <h5 class="card-title">ตรวจสอบ</h5>
-                  <p class="card-text">With supporting </p>
+                  <p class="card-text">{{$check}} รายการ </p>
                 </div>
               </div>
             </div>
@@ -72,7 +80,7 @@
               <div class="card border-success shadow text-black ">
                 <div class="card-body">
                   <h5 class="card-title">จัดส่ง</h5>
-                  <p class="card-text">With supporting .</p>
+                  <p class="card-text">{{$ship}} รายการ</p>
                 </div>
               </div>
             </div>
@@ -80,14 +88,14 @@
               <div class="card border-warning shadow text-black">
                 <div class="card-body">
                   <h5 class="card-title">สำเร็จ</h5>
-                  <p class="card-text">With supporting </p>
+                  <p class="card-text">{{$complete}} รายการ</p>
                 </div>
               </div>
             </div>
           </div>
           <br>
           <div ="container">
-          <label for="tableorder">5 อันดับรายการขายที่ดีสุด :</label>
+          <label for="tableorder">รายการขายที่ดีสุด :</label>
           <div class ="row">
           <table class="table col-8">
             <br>
@@ -96,18 +104,19 @@
                   <th>ลำดับ</th>
                   <th>ชื่อสินค้า</th>
                   <th>จำนวน</th>
-                  <th>ราคา</th>
                   <th>ยอดขาย</th>
               </tr>
               </thead>
               <tbody>
+                  @php $index = 1 @endphp
+                  @foreach($rank as $data)
                       <tr>
-                          <td>test</td>
-                          <td>test</td>
-                          <td>test</td>
-                          <td>test</td>
-                          <td>test</td>
+                          <td>{{$index++}}</td>
+                          <td>{{$data->product_name}}</td>
+                          <td>{{$data->amount}}</td>
+                          <td>{{$data->total}}</td>
                       </tr>
+                    @endforeach
               </tbody>
               </table>
             </div>
@@ -115,7 +124,7 @@
 
 
           <!-- Chart -->
-          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+          {{--<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>--}}
         <!-- show Order-->
       </div>
     </div>
