@@ -150,7 +150,8 @@
                           <input type="text" class="form-control"  id="link"name="link" value="{{ URL("order/$order->order_id") }}" >
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-primary" data-dismiss="modal">ตกลง</button>
+                          <a href="{{ url("orderlist") }}" class="btn btn-primary">รายการขาย</a>
+                          <button type="submit" class="btn btn-primary" data-dismiss="modal">ตกลง</button>
                         </div>
                       </div>
                     </div>

@@ -87,11 +87,15 @@
                                     </a> </td>
                                 <td>{{$row->phone}}</td>
                                 <!-- updated_at -->
+                                <td>{{$row->created_at}}</td>
+                                <td>{{$row->updated_at}}</td>
                                 <td>{{$row->product_cost}}</td>
-                                <td>{{$row->ship_cost}}</td>
+
                                 <th>
                                     @if($page == "all")
-                                        {{ $row->address." ".$row->sub_district." ".$row->district." ".$row->province." ".$row->zipcode }}
+                                    <a href="#" data-toggle="modal" data-target="#myModal" >
+                                        <img class="image-click" width="150px" src="{{asset($row->slip_image_url)}}" alt="">
+                                    </a>
                                     @elseif($page == "check")
 
                                       <a href="#" data-toggle="modal" data-target="#myModal" >
@@ -99,7 +103,9 @@
                                       </a>
 
                                     @elseif($page == "ship")
-                                        {{ $row->address." ".$row->sub_district." ".$row->district." ".$row->province." ".$row->zipcode }}
+                                    <a href="#" data-toggle="modal" data-target="#myModal" >
+                                        <img class="image-click" width="150px" src="{{asset($row->slip_image_url)}}" alt="">
+                                    </a>
                                     @endif
 
 
@@ -108,11 +114,11 @@
                                 </th>
                                 <td>
                                     @if($page == "all")
-                                       Completed
+                                       {{$row->status}}
                                     @elseif($page == "check")
-                                        To Check
+                                        {{$row->status}}
                                     @elseif($page == "ship")
-                                        To Ship
+                                        {{$row->status}}
                                     @endif
                                 </td>
                                 <td>
@@ -123,9 +129,9 @@
                                     @elseif($page == "check")
 
                                         <select class="status_select">
-                                            <option>รอตรวจสอบ</option>
-                                            <option>ผ่าน</option>
-                                            <option>ไม่ผ่าน</option>
+                                            <option  value='toCheck'>รอตรวจสอบ</option>
+                                            <option  value='ToShip'>ผ่าน</option>
+                                            <option  value='To CHECKFAIL'>ไม่ผ่าน</option>
                                         </select>
                                         <a href="{{url("orderproduct")."/".$row->order_id}}"><br>
                                           <button type ="button" class="btn btn-primary">แก้ไข</button>
@@ -133,8 +139,8 @@
                                     @elseif($page == "ship")
 
                                         <select class="status_select">
-                                            <option>To Ship</option>
-                                            <option>Sent</option>
+                                            <option value='ToShip'>To Ship</option>
+                                            <option value='COMPLETE'>Sent</option>
                                         </select>
                                         <a href="{{url("orderproduct")."/".$row->order_id}}">
                                           <button type ="button" class="btn btn-primary">แก้ไข</button>
@@ -235,7 +241,18 @@
 
         confirm("บันทึกการเปลี่ยนแปลงใช่หรือไม่ ?");
     })
-
+    $('select').live('change',function () {
+        var statusVal = $(this).val();
+        alert(statusVal);
+        $.ajax({
+                 type: "POST",
+                 url: "saveStatus.php",
+                 data: {statusType : statusVal },
+                 success: function(msg) {
+                     $('#autosavenotify').text(msg);
+                 }
+      })
+  });
 
 </script>
 </body>
