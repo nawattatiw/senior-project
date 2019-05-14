@@ -21,8 +21,10 @@ class Orders extends Model{
             return "กำลังจัดส่งสินค้า";
         }else if ($this->status == "EXPIRED") {
             return "หมดอายุ";
+        }else if ($this->status == "COMPLETED") {
+            return "สำเร็จ";
         }else{
-            return "สำเร็จ ";
+            return "ไม่ผ่าน";
         }
     }
 

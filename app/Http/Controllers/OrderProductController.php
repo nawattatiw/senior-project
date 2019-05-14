@@ -75,14 +75,21 @@ class OrderProductController extends Controller
             $order_products = new OrderProduct();
             $order_products->order_id = $order_id;
             $order_products->product_id = $product_id;
+        }else{
+
+            $issue_id = $order_products->issue_id;
+            $this->removeIssue($issue_id);
+
         }
 
         $order_products->billaddress = $billaddress;
         $order_products->amount = $amount;
         $order_products->price = $price;
         $order_products->total = $total;
-        $order_products->save();
+        $issue = $this->createIssue($product_id,$price,$amount,$total);
+        $order_products->issue_id = $issue['id'];
 
+        $order_products->save();
 
         return redirect('orderproduct/'.$order_id);
       }
@@ -155,6 +162,10 @@ class OrderProductController extends Controller
         $order_products = orderproduct::where("id",$id)->first();
         $order_products->delete();
 
+        $issue_id = $order_products->issue_id;
+        $this->removeIssue($issue_id);
+
+
         return Redirect()->back()->with(['message' => 'ลบข้อมูลเรียบร้อย']);
       }
 
@@ -208,11 +219,30 @@ class OrderProductController extends Controller
         $order = Orders::where("order_id",$order_id)->first();
         $order->status = $status;
 
+        $order_products = OrderProduct::where("order_id",$order_id)->get();
+
+
         if( $request->input('tracking_no') ){
             $order->tracking_no = $request->input('tracking_no');
         }
 
         $order->save();
+
+        if($order->status != "TO PAY" && $order->status != "TO CHECK" && $order->status != "TO SHIP" && $order->status != "COMPLETE" ){
+
+            foreach ($order_products as $op){
+                $this->removeIssue($op->issue_id);
+            }
+
+        }else{
+            foreach ($order_products as $op){
+
+                $this->revorkIssue($op->product_id,$op->price,$op->amount,$op->total,$op->issue_id);
+            }
+        }
+
+
+
 
         return Redirect()->back()->with(['message' => 'แก้ไข Status เรียบร้อยแล้ว']);
     }
@@ -279,5 +309,80 @@ class OrderProductController extends Controller
 
 
         return view('layout.statistic',$data);
+    }
+
+
+    public function revorkIssue($product_id, $price, $amount, $total_price,$issue_id){
+
+
+        if( !is_null($issue_id) && $issue_id != "" ){
+
+            $url = "http://shop.kisrasprint.com/api/createissue";
+            $key = "createProductConfirmIssue";
+
+            $data['key'] = $key;
+            $data['product_id'] = $product_id;
+            $data['price'] = $price;
+            $data['amount'] = $amount;
+            $data['total_price'] = $total_price;
+            $data['issue_id'] = $issue_id;
+
+            $result = $this->curlPost($url,$data);
+
+            $data = json_decode($result, true);
+
+            return $data['no'];
+        }
+        return "";
+      
+    }
+
+
+    public function createIssue($product_id, $price, $amount, $total_price){
+
+
+        $url = "http://shop.kisrasprint.com/api/createissue";
+        $key = "createProductConfirmIssue";
+        
+        $data['key'] = $key;
+        $data['product_id'] = $product_id;
+        $data['price'] = $price;
+        $data['amount'] = $amount;
+        $data['total_price'] = $total_price;
+
+        $result = $this->curlPost($url,$data);
+        $data = json_decode($result, true);
+
+        return $data;
+
+    }
+
+
+    public function removeIssue($issue_id){
+
+        if( !is_null($issue_id) && $issue_id != "" ){
+            $url = "http://shop.kisrasprint.com/api/removeissue";
+            $key = "removeProductConfirmIssue";
+
+            $data['key'] = $key;
+            $data['issue_id'] = $issue_id;
+
+            $result = $this->curlPost($url,$data);
+        }
+
+    }
+
+    function curlPost($url, $data) {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $response = curl_exec($ch);
+        $error = curl_error($ch);
+        curl_close($ch);
+        if ($error !== '') {
+            throw new \Exception($error);
+        }
+
+        return $response;
     }
 }

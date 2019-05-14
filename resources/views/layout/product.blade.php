@@ -86,6 +86,7 @@
                             <th>sku</th>
                             <th>ชื่อสินค้า</th>
                             <th>ชนิดสินค้า</th>
+                            <th>ราคาทุน</th>
                             <th>คงเหลือ</th>
                             <th>ปริมาณสินค้าขั้นต่ำ</th>
                             <th>รูปภาพ</th>
@@ -100,10 +101,11 @@
                                 <td>{{$row->sku}}</td>
                                 <td>{{$row->name}}</td>
                                 <td>{{$row->product_type}}</td>
+                                <td>{{$row->default_price}}</td>
                                 <td>{{$row->remaining}}</td>
                                 <td>{{$row->min_stock}}</td>
                                 <th><a href="#" data-toggle="modal" data-target="#myModal"><img width="150px" src="http://shop.kisrasprint.com{{($row->image_url)}}" alt=""></a></th>
-                                <td>{{$row->default_price}}</td>
+                                <td>{{$row->updated_at}}</td>
                         </tr>
                         @endforeach
                     </table>

@@ -84,33 +84,45 @@
               </div>
               <div class="col">
                 <label for="inputAddress">เบอร์โทรติดต่อลูกค้า</label>
-                <input type="text" class="form-control" name="billaddress" value="{{$order->phone}}">
+                <input required type="text" class="form-control" name="billaddress" value="{{$order->phone}}">
               </div>
                 </div>
                 <br>
                 <div class="row">
-              <div class="col-md-6 ">
+              <div class="col-md-8 ">
                 <label for="productid" style="width:100%;">สินค้า</label>
-                <select class="custom-select" name="product_id">
+                <select required class="custom-select" name="product_id" id="product_select">
+                  <option   value="">เลือกรายการ</option>
                   @foreach($products as $product)
                     <option  value="{{$product->no}}">{{$product->name}}</option>
+
                   @endforeach
                 </select>
+
+                @foreach($products as $product)
+                  <input type="hidden" value="{{$product->default_price}}" id="product_{{$product->no}}" />
+                @endforeach
                 </div>
+
                 <div class="col-md-4">
                   <label for="amount">จำนวน</label>
-                  <input type="number"  id="amount"  class="form-control" name="amount">
+                  <input required type="number"  id="amount"  class="form-control" name="amount">
                 </div>
               </div>
               <form class ="form-inline">
               <div class="row">
                 <div class="col-md-4">
+                  <label for="amount">ราคาทุน</label>
+                  <input type="number"  id="budget"  class="form-control" name="budget" readonly>
+                </div>
+
+                <div class="col-md-4">
                   <label for="price">ราคาต่อชิ้น</label>
-                  <input type="number" id="price" class="form-control" name="price">
+                  <input required type="number" id="price" class="form-control" name="price">
                 </div>
                 <div class="col-md-4">
                   <label for="price">ราคารวม</label>
-                  <input type="text"  id="total"  class="form-control" name="total"></input>
+                  <input required type="text"  id="total"  class="form-control" name="total"></input>
                 </div>
                 <div class="col-md-4">
                   <button type="submit" class="btn btn-primary"style="margin-top: 2rem;">เพิ่มรายการ</button>
@@ -216,6 +228,23 @@
 
 <!-- $order -->
 <script type ="text/javascript">
+
+
+    $('#product_select').change(function(){
+        id = $(this).val();
+        var price = $("#product_"+id).val();
+        $("#budget").val(price);
+
+        amount = $("#amount").val();
+        if(amount == ""){
+            $("#amount").val(1);
+        }
+
+        $("#price").val( Math.ceil( price * 1.2 ) );
+
+        calculatePrice();
+    });
+
 
 
     $("#back-button").click(function () {
