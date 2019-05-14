@@ -89,7 +89,7 @@
                 </div>
                 <br>
                 <div class="row">
-              <div class="col-md-6 ">
+              <div class="col  ">
                 <label for="productid" style="width:100%;">สินค้า</label>
                 <select class="custom-select" name="product_id">
                   @foreach($products as $product)
@@ -97,7 +97,7 @@
                   @endforeach
                 </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col ">
                   <label for="amount">จำนวน</label>
                   <input type="number"  id="amount"  class="form-control" name="amount">
                 </div>
@@ -136,7 +136,7 @@
                           <div class ="container">
                           <div class ="row">
                           <h5 class="modal-title" id="exampleModalLongTitle">สร้างรายการขายสำเร็จ</h5>
-                          <span class="form-control-plaintext" id="staticEmail">รายการขาย ณ วันที่ (ยังไม่เสร็จ)&nbsp;{{$order->order_id}}</span>
+                          <span class="form-control-plaintext" id="staticEmail">รายการขาย &nbsp;{{$order->created_at}}</span>
                         </div>
                         </div>
                       </div>

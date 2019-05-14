@@ -7,6 +7,7 @@
         <th>วันที่เปิดบิล</th>
         <th>วันที่แก้ไข</th>
         <th>ยอดรวม</th>
+        <th>รายละเอียด</th>
         <th>หลักฐานการโอน</th>
         <th>tracking_no</th>
         <th>สถานะ</th>
@@ -27,6 +28,12 @@
             <td>{{$row->created_at}}</td>
             <td>{{$row->updated_at}}</td>
             <td>{{$row->product_cost}}</td>
+            <td>
+                @php $products = $list_orderpd[$row->order_id] @endphp
+               @foreach($products as $orderProduct )
+                   {{$orderProduct->name}} x {{$orderProduct->amount}} <br>
+                @endforeach
+            </td>
 
             <th>
                 <a href="#" data-toggle="modal" data-target="#myModal" >
@@ -48,4 +55,3 @@
     </tr>
     @endforeach
 </table>
-
