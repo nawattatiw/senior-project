@@ -110,6 +110,8 @@ class AddressController extends Controller
           }
           elseif($order->status == "COMPLETE"){
               return $this->generateCustomerToComplete($order);
+          }else{
+              return $this->generateCustomerToPay($order);
           }
         } else {
           dd('order not found');

@@ -14,8 +14,10 @@
 
     <h2 class ="text-center">CINTAGE SHOP</h2>
     <p class ="text-center">เลขที่บิล&nbsp;{{$order->order_id}}</p>
-    <p class ="text-center">รายการจะหมดอายุ: {{$order->expire_at}}</p>
 
+    @if($order->status == "TO PAY")
+    <p class ="text-center">รายการจะหมดอายุ: {{$order->created_at->addDay(2)}}</p>
+@endif
 
 
 
@@ -78,7 +80,15 @@
 
     <div class="text-center list-group-item list-group-item-action active">
         <h5>สถานะของรายการซื้อ</h5>
-        <span style="font-size: 30px">{{$order->statusName}}</span>
+        <span style="font-size: 30px">
+
+        @if($order->statusName == 'หมดอายุ' )
+                ลิ้งหมดอายุ <br> กรุณาติดต่อฝ่ายขาย
+            @else
+                {{$order->statusName}}
+
+            @endif
+        </span>
     </div>
 </section>
 

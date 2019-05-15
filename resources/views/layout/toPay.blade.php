@@ -140,24 +140,24 @@
                 <input class="form-control" type="hidden" name="total" id="total" value="{{$order->total}}" >
 
 
-               <label>ชื่อ และ นามสกุล</label>
-                <input value="{{$address->name}}" class="form-control" type="text" name="name" placeholder="" >
-                <label>เบอร์ติดต่อ</label>
-                <input value="{{$address->phonenumber}}" class="form-control" type="text" name="phonenumber" placeholder=""value="{{$order->phonenumber}}">
-                <label>อีเมลล์</label>
-                <input value="{{$address->email}}" class="form-control" type="text" name="email" placeholder="" >
-                <label>ที่อยู่</label>
-                <input value="{{$address->address}}" class="form-control" type="text" name="address" placeholder="" >
-                <label>แขวง/ตำบล</label>
-                <input value="{{$address->sub_district}}" class="form-control" type="text" name="subdistrict" placeholder="" >
-                <label>เขต/อำเภอ</label>
-                <input value="{{$address->district}}" class="form-control" type="text" name="district" placeholder="" >
-                <label>จังหวัด</label>
-                <input value="{{$address->province}}"  class="form-control" type="text" name="province" placeholder="" >
-                <label>รหัสไปรษณีย์</label>
-                <input value="{{$address->zipcode}}"  class="form-control" type="text" name="zipcode" placeholder="" >
+               <label>ชื่อ และ นามสกุล ***</label>
+                <input required value="{{$address->name}}" class="form-control" type="text" name="name" placeholder="" >
+                <label>เบอร์ติดต่อ **</label>
+                <input required value="{{$address->phonenumber}}" class="form-control" type="text" name="phonenumber" placeholder=""value="{{$order->phonenumber}}">
+                <label>อีเมลล์  **</label>
+                <input required value="{{$address->email}}" class="form-control" type="text" name="email" placeholder="" >
+                <label>ที่อยู่ **</label>
+                <input required value="{{$address->address}}" class="form-control" type="text" name="address" placeholder="" >
+                <label>แขวง/ตำบล **</label>
+                <input required value="{{$address->sub_district}}" class="form-control" type="text" name="subdistrict" placeholder="" >
+                <label>เขต/อำเภอ **</label>
+                <input required value="{{$address->district}}" class="form-control" type="text" name="district" placeholder="" >
+                <label>จังหวัด **</label>
+                <input required value="{{$address->province}}"  class="form-control" type="text" name="province" placeholder="" >
+                <label>รหัสไปรษณีย์ **</label>
+                <input required value="{{$address->zipcode}}"  class="form-control" type="text" name="zipcode" placeholder="" >
                 <br>
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="บันทึกข้อมูล" />
+                <input required type="submit" class="btn btn-primary btn-lg btn-block" value="บันทึกข้อมูล" />
             </div>
             <!-- ปุ่มบันทึกข้อมูล -->
 

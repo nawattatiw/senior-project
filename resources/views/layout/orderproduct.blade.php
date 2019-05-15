@@ -64,6 +64,16 @@
       ย้อนกลับ
     </button>
 
+    @if (Session::has('message'))
+      <div class="alert alert-success" role="alert">
+        {{Session::get('message')}}
+      </div>
+    @elseif (Session::has('error'))
+      <div class="alert alert-warning" role="alert">
+        {{Session::get('error')}}
+      </div>
+    @endif
+
     <div class="container-fluid">
       <div class="container ">
         <br>
@@ -89,7 +99,7 @@
                 </div>
                 <br>
                 <div class="row">
-              <div class="col-md-8 ">
+              <div class="col-md-12 ">
                 <label for="productid" style="width:100%;">สินค้า</label>
                 <select required class="custom-select" name="product_id" id="product_select">
                   <option   value="">เลือกรายการ</option>
@@ -100,14 +110,21 @@
                 </select>
 
                 @foreach($products as $product)
-                  <input type="hidden" value="{{$product->default_price}}" id="product_{{$product->no}}" />
+                  <input type="hidden" remain="{{$product->remaining}}" value="{{$product->default_price}}" id="product_{{$product->no}}" />
                 @endforeach
                 </div>
+
+                  <div class="col-md-4">
+                    <label for="amount">คงเหลือ</label>
+                    <input disabled type="number"  id="remain"  class="form-control" name="remain">
+                  </div>
 
                 <div class="col-md-4">
                   <label for="amount">จำนวน</label>
                   <input required type="number"  id="amount"  class="form-control" name="amount">
                 </div>
+
+
               </div>
               <form class ="form-inline">
               <div class="row">
@@ -233,7 +250,10 @@
     $('#product_select').change(function(){
         id = $(this).val();
         var price = $("#product_"+id).val();
+        var remain = $("#product_"+id).attr("remain");
+
         $("#budget").val(price);
+        $("#remain").val(remain);
 
         amount = $("#amount").val();
         if(amount == ""){

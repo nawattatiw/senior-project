@@ -26,7 +26,7 @@
             <!-- updated_at -->
             <td>{{$row->created_at}}</td>
             <td>{{$row->updated_at}}</td>
-            <td>{{$row->product_cost}}</td>
+            <td>{{$row->total}}</td>
 
             <th>
                 <a href="#" data-toggle="modal" data-target="#myModal" >

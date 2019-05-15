@@ -74,7 +74,7 @@
                     @if($page == "all")
                         @include('layout.component.tableAll')
                     @elseif($page == "check")
-                        {@include('layout.component.tableCheck')
+                        @include('layout.component.tableCheck')
                     @elseif($page == "ship")
                         @include('layout.component.tableShip')
                     @endif

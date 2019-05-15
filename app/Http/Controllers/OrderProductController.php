@@ -56,11 +56,20 @@ class OrderProductController extends Controller
         $total = $request->get('total');
         $billaddress = $request->get('billaddress');
 
+        $product = Product::where("id", $product_id)->first();
+
+        if($product->remaining - $amount < 0){
+           return \Redirect::back()->with(['message' => $product->name.' ของมีไม่พอ']);
+        }
+
+
        //Check Order Exist
         $order = Orders::where("order_id",$order_id)->first();
         if(!$order){
             $order = new Orders();
             $order->order_id = $order_id;
+            $order->status= "TO PAY";
+            $order->created_at = Carbon::now();
 
         }
         $order->phone = $billaddress;
@@ -181,7 +190,7 @@ class OrderProductController extends Controller
            $status = "TO SHIP";
        }
 
-       $orders = Orders::join('address', 'orders.phone', '=', 'address.phonenumber');
+       $orders = Orders::leftJoin('address', 'orders.phone', '=', 'address.phonenumber');
 
        if($status == ""){
            $orders = $orders->get();

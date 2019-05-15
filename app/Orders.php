@@ -9,10 +9,22 @@ class Orders extends Model{
   protected $table='orders';
 
 
+    protected $dates = ['created_at', 'updated_at'];
+
     public function getStatusNameAttribute()
     {
         if ($this->status == "TO PAY") {
-            return "ชำระเงิน";
+                if( $this->created_at){
+                    if (Carbon::now()->gt( $this->created_at->addDays(2))) {
+                        return "หมดอายุ";
+                    }else{
+                        return "ชำระเงิน";
+                    }
+                } else{
+                    return "ชำระเงิน";
+                }
+
+
         } else if ($this->status == "TO CHECK") {
             return "ตรวจสอบ";
         } else if ($this->status == "TO CHECKFAIL") {
@@ -21,10 +33,15 @@ class Orders extends Model{
             return "กำลังจัดส่งสินค้า";
         }else if ($this->status == "EXPIRED") {
             return "หมดอายุ";
-        }else if ($this->status == "COMPLETED") {
+        }else if ($this->status == "COMPLETE") {
             return "สำเร็จ";
         }else{
-            return "ไม่ผ่าน";
+
+            if (Carbon::now()->gt( $this->created_at->addDays(2))) {
+                return "หมดอายุ";
+            }else{
+                return "ไม่ผ่าน";
+            }
         }
     }
 

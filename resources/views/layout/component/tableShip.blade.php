@@ -9,6 +9,7 @@
         <th>ยอดรวม</th>
         <th>รายละเอียด</th>
         <th>ที่อยู่จัดส่ง</th>
+        <th>วิธีจัดส่ง</th>
         <th>สถานะ</th>
         <th>Action</th>
     </tr>
@@ -38,6 +39,10 @@
 
             <td>
                 {{$row->name. " " .$row->address. " " .$row->district. " " .$row->province. " " .$row->zipcode}}
+            </td>
+
+            <td>
+                {{$row->ship_plan}}
             </td>
 
             <td>
